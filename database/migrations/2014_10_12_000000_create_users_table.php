@@ -17,13 +17,13 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email');
-            $table->integer('permissionId');
+            $table->integer('permissionId')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->date('createddate');
-            $table->integer('branchid');
-            $table->string('imageurl');
-            $table->ipAddress('lastipaddr');
+            $table->date('createddate')->nullable();
+            $table->integer('branchid')->nullable();
+            $table->string('imageurl')->nullable();
+            $table->ipAddress('lastipaddr')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Branch extends Migration
+class CreateTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class Branch extends Migration
      */
     public function up()
     {
-        Schema::create('branch', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('location')->nullable();
-            $table->string('imageurl')->nullable();
-            $table->string('coordinate')->nullable();
+            $table->string('detail')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class Branch extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('branch');
+        Schema::dropIfExists('types');
     }
 }

@@ -69,7 +69,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Shoptech
+                    Eanplock
                 </div>
                 @error('email')
                     <div class="uk-alert-danger" uk-alert>

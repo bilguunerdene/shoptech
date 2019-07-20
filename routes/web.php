@@ -21,4 +21,8 @@ Route::get('/cart', 'CartController@index')->name('cart');
 
 Route::get('/settings', 'SettingsController@index')->name('settings');
 
+Route::resource('type', 'TypeController');
+
+Route::resource('product', 'ProductController');
+
 Route::post('login', 'Auth\LoginController@login');
