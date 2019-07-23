@@ -11,13 +11,13 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <link rel="stylesheet" href="css/uikit.min.css">
-    <script src="js/uikit.min.js"></script>
-    <script src="js/uikit-icons.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/uikit.min.css') }}">
+    <script src="{{ asset('js/uikit.min.js') }}"></script>
+    <script src="{{ asset('js/uikit-icons.min.js') }}"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -79,7 +79,7 @@
                                 </li>
                             @endif
                         @else
-                            <li><img class="uk-border-circle" src="{{ Auth::user()->imageurl==null?'images/profile.jpeg':Auth::user()->imageurl }}" style="height:40px;width:40px" alt="Profile"></li>
+                            <li><img class="uk-border-circle" src="{{ Auth::user()->imageurl==null?asset('images/profile.jpeg'):asset(Auth::user()->imageurl) }}" style="height:40px;width:40px" alt="Profile"></li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
