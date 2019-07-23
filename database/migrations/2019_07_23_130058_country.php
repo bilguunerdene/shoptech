@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Permission extends Migration
+class Country extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class Permission extends Migration
      */
     public function up()
     {
-        Schema::create('permission', function (Blueprint $table) {
+        Schema::create('country', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->text("detail")->nullable();
+            $table->integer('countrycode')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class Permission extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permission');
+        Schema::dropIfExists('country');
     }
 }

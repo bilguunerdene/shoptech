@@ -5,29 +5,41 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-    <form class="uk-form-horizontal" action="{{ route('product.store') }}" enctype="multipart/form-data" method="POST">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form class="uk-form-horizontal" action="{{ $action }}" enctype="multipart/form-data" method="POST">
     @csrf
+    @method($method)
+    <input type="hidden" name="id" value="{{$product!=null?$product->id:''}}">
     <div class="uk-margin">
     <label class="uk-form-label" for="">Name</label>
-    <div class="uk-form-controls"><input type="text" name="name" class="uk-input required"></div>
+    <div class="uk-form-controls"><input type="text" name="name" value="{{ $product!=null?$product->name:old('name')}}" class="uk-input required"></div>
     </div>
     <div class="uk-margin">
     <label class="uk-form-label" for="">Barcode</label>
-    <div class="uk-form-controls"><input type="text" name="barcode" class="uk-input"></div>
+    <div class="uk-form-controls"><input type="text" name="barcode" class="uk-input" value="{{ $product!=null?$product->barcode:old('barcode') }}"></div>
     </div>
     <div class="uk-margin">
     <label class="uk-form-label" for="">Price</label>
-    <div class="uk-form-controls"><input type="text" name="price" class="uk-input"></div>
+    <div class="uk-form-controls"><input type="text" name="price" class="uk-input" value="{{ $product!=null?$product->price:old('price') }}"></div>
     </div>
     <div class="uk-margin">
     <label class="uk-form-label" for="">Quantity per package</label>
-    <div class="uk-form-controls"><input type="text" name="cnt" class="uk-input"></div>
+    <div class="uk-form-controls"><input type="text" name="quantity" class="uk-input" value="{{ $product!=null?$product->cnt:old('quantity') }}"></div>
     </div>
     <div class="uk-margin">
     <label class="uk-form-label" for="">Type</label>
     <div class="uk-form-controls"><select class="uk-select" name="type" name="" id="">
+        <option value="">- Choose an one -</option>
     @foreach($type as $val)
-    <option value="{{ $val->id }}">{{ $val->name }}</option>
+    <option value="{{ $val->id }}" {{old('type')==$val->id||($product!=null?$product->type:'')==$val->id?'selected':''}}>{{ $val->name }}</option>
     @endforeach
     </select></div>
     
@@ -35,16 +47,19 @@
     <label class="uk-form-label" for="">Image</label>
     <div class="uk-form-controls" style="margin-left:15px" uk-form-custom="target: true">
         <input type="file" name="image">
-        <input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled>
+    <input class="uk-input uk-form-width-medium" type="text" placeholder="{{ $product!=null?$product->imageurl:(old('imageurl')!=null?old('imageurl'):'Select file') }}" disabled>
+    @if($product!=null&&$product->imageurl!=null)
+    <div><img style="width:200px;height:200px" src="{{ asset('images/').'/'.$product->imageurl }}" alt=""></div>
+    @endif
     </div>
     <!-- <button class="uk-button uk-button-default">Submit</button> -->
     </div>
     <div class="uk-margin">
     <label class="uk-form-label" for="">Detail</label>
-    <div class="uk-form-controls"><textarea class="uk-textarea" name="detail"></textarea></div>
+    <div class="uk-form-controls"><textarea class="uk-textarea" name="detail">{{ $product!=null?$product->detail:old('detail') }}</textarea></div>
     </div>
     
-    <input type="submit" value="Save" class="uk-input uk-button-primary">
+<input type="submit" value="{{$product!=null?'Update':'Save'}}" class="uk-input uk-button-primary">
     </div>
     </form>
 @endsection

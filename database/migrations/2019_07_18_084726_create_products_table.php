@@ -19,10 +19,10 @@ class CreateProductsTable extends Migration
             $table->string('barcode');
             $table->integer('price');
             $table->integer('cnt');
-            $table->integer('type');
-            $table->integer('countryId');
-            $table->text('detail');
-            $table->string('imageurl');
+            $table->integer('type')->nullable();;
+            $table->integer('countryId')->nullable();;
+            $table->text('detail')->nullable();;
+            $table->string('imageurl')->nullable();;
             $table->timestamps();
         });
     }

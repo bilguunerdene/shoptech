@@ -22,7 +22,10 @@ class ProductController extends Controller
         $type = Type::all();
         // $country = Country::all();
         // var_dump($items);exit;
-        return view('product.add',compact('type'));
+        $action = route('product.store');
+        $product = null;
+        $method = "POST";
+        return view('product.add',compact('type', 'product', 'action', 'method'));
     }
     public function destroy($id){
         $res = Product::find($id)->delete();
@@ -32,20 +35,61 @@ class ProductController extends Controller
         return redirect()->back()->with(['status'=>"0","msg"=>"Error."]); 
         
     }
-    public function store(Request $request){
+    public function edit($id){
+        $product = Product::find($id);
+        $type = Type::all();
+        $action = route('product.update', ['id' => $id]);
+        $method = "PUT";
+        return view('product.add',compact('type','product','action','method'));
+    }
+    public function update(Request $request){
         $rules = array (
-            'name' => 'required|alpha',
-            'barcode' => 'required|number',
-            'price' => 'required|number',
-            'cnt' => 'required|number',
+            'id' => 'required|numeric',
+            'name' => 'required',
+            'barcode' => 'required|numeric',
+            'price' => 'required|numeric',
+            'quantity' => 'required|numeric',
             'type' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     );
     $validator = Validator::make ( Input::all (), $rules );
     if ($validator->fails ())
-        return Response::json ( array (             
-                'errors' => $validator->getMessageBag ()->toArray () 
-        ) );
+        return redirect()->back()->withInput(Input::all())->withErrors($validator->getMessageBag()->ToArray());
+    else {
+           
+    
+        $product = Product::find(request('id'));
+        $product->name = request('name');
+        $product->barcode = request('barcode');
+        $product->price = request('price');
+        $product->cnt = request('quantity');
+        $product->type = request('type');
+        
+        // $product->countryId = request('country');
+        $product->detail = request('detail');
+
+        if ($files = $request->file('image')) {
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move(public_path('images'), $profileImage);
+            $product->imageurl = $profileImage;
+         }
+
+        $product->save();
+        return redirect()->back()->with(['status' => 'Updated.']);
+    }
+    }
+    public function store(Request $request){
+        $rules = array (
+            'name' => 'required',
+            'barcode' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+            'type' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    );
+    $validator = Validator::make ( Input::all (), $rules );
+    if ($validator->fails ())
+        return redirect()->back()->withInput(Input::all())->withErrors($validator->getMessageBag()->ToArray());
     else {
            
     
@@ -53,7 +97,7 @@ class ProductController extends Controller
         $product->name = request('name');
         $product->barcode = request('barcode');
         $product->price = request('price');
-        $product->cnt = request('cnt');
+        $product->cnt = request('quantity');
         $product->type = request('type');
         
         // $product->countryId = request('country');

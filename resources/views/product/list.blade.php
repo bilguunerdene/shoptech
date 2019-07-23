@@ -27,7 +27,7 @@
             <td class="uk-text-center">{{$item->price}}</td>
             <td class="uk-text-center">{{$item->cnt}}</td>
             <td class="uk-text-center">{{$item->created_at}}</td>
-            <td class="uk-text-center"><button class="edit-modal btn btn-info"
+        <td class="uk-text-center"><button onclick="window.location='{{route('product.edit',['id'=>$item->id])}}'" class="edit-modal btn btn-info"
             >
             <span uk-icon="pencil"></span>
         </button>
