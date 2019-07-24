@@ -18,6 +18,10 @@ class ProductController extends Controller
         $product = Product::all();
         return view('product.list',compact('product'));
     }
+    public function show($id){
+        $product = Product::find($id);
+        return view('product.show',compact('product'));
+    }
     public function create(){
         $type = Type::all();
         // $country = Country::all();

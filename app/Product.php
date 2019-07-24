@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public function getPriceAttribute($value){
-        return number_format($value);
-    }
+    // public function getPriceAttribute($value){
+    //     return number_format($value);
+    // }
 }
