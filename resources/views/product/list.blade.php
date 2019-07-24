@@ -3,7 +3,11 @@
 @extends('layouts.script')
 
 @section('section')
-
+                @if (session('status'))
+                            <div class="alert {{ session('status')==0?'alert-success':'alert-danger' }}" role="alert">
+                                {{ session('msg') }}
+                            </div>
+                        @endif
     <table class="table" id="table">
     <thead>
         <tr>
@@ -27,14 +31,20 @@
             <td class="uk-text-center">{{$item->price}}</td>
             <td class="uk-text-center">{{$item->cnt}}</td>
             <td class="uk-text-center">{{$item->created_at}}</td>
-        <td class="uk-text-center"><button onclick="window.location='{{route('product.edit',['id'=>$item->id])}}'" class="edit-modal btn btn-info"
-            >
-            <span uk-icon="pencil"></span>
-        </button>
-        <button onclick="deleteprod({{$item->id}})" class="delete-modal btn btn-danger"
-            >
-            <span uk-icon="trash"></span>
-        </button></td>
+        <td class="uk-text-center">
+        
+        <!-- <a href="{{route('product.edit',['id'=>$item->id])}}"><div class="btn btn-info"><span uk-icon="pencil"></span></div></a>
+        <a href="{{route('product.destroy',['id'=>$item->id])}}"><div class="btn btn-danger"><span uk-icon="trash"></span></div></a> -->
+        <form class="uk-display-inline" action="{{route('product.edit',['id' => $item->id])}}" method="GET">
+        @csrf
+        <button class="btn btn-info" type="submit"><span uk-icon="pencil"></span></button>
+        </form>
+        <form class="uk-display-inline" action="{{route('product.destroy',['id' => $item->id])}}" method="POST">
+        @method('DELETE')
+        @csrf
+        <button class="btn btn-danger" type="submit"><span uk-icon="trash"></span></button>
+        </form>
+        </td>
         </tr>
         @endforeach
     </tbody>

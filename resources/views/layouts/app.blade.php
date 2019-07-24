@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/script.js') }}" defer></script>
     <link rel="stylesheet" href="{{ asset('css/uikit.min.css') }}">
     <script src="{{ asset('js/uikit.min.js') }}"></script>
     <script src="{{ asset('js/uikit-icons.min.js') }}"></script>
@@ -79,6 +80,9 @@
                                 </li>
                             @endif
                         @else
+                        <li class="nav-item">
+                            <div class="uk-margin-right"><a href="{{route('cart')}}" class="uk-icon-button" uk-icon="icon: cart; ratio: 1.5"></a><span class="uk-badge cartbadge">1</span></div>
+                        </li>
                             <li><img class="uk-border-circle" src="{{ Auth::user()->imageurl==null?asset('images/profile.jpeg'):asset(Auth::user()->imageurl) }}" style="height:40px;width:40px" alt="Profile"></li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -81,9 +81,9 @@ class ProductController extends Controller
     public function store(Request $request){
         $rules = array (
             'name' => 'required',
-            'barcode' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
+            'barcode' => 'required|numeric',
+            'price' => 'required|numeric',
+            'quantity' => 'required|numeric',
             'type' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     );
