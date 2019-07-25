@@ -10,7 +10,7 @@ class CartController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        $items = session()->get('cart');
+        $items = session()->get('cart')!=null?session()->get('cart'):array();
         // var_dump($items);exit;
         return view('cart',compact('items'));
     }

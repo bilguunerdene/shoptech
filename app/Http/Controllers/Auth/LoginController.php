@@ -54,7 +54,7 @@ class LoginController extends Controller
         }else{
             $user = ['email' => Input::get('email'), 'password' => Input::get('password')];
             if(Auth::attempt($user)){
-                return view('home');
+                return Redirect::to('home');
             }else{
                 // var_dump($validator);
                 // exit;

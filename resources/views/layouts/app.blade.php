@@ -117,6 +117,20 @@
             @yield('content')
         </main>
     </div>
-    @yield('scripts')
+    <script type="text/javascript">
+function minusval(id,quantity){
+    $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())-quantity);
+}
+function addval(id,quantity){
+    $.ajax({
+        "url": '{{ url("update-cart") }}',
+        "type":"POST",
+        "data": { "_token": "{{ csrf_token() }}","id":id, "quantity":quantity},
+        "success":()=>{
+            $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())+quantity);
+        }
+    });
+}
+</script>
 </body>
 </html>
