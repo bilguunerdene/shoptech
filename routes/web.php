@@ -29,6 +29,6 @@ Route::post('login', 'Auth\LoginController@login');
 
 Route::post('update-cart', 'CartController@update');
  
-Route::delete('remove-from-cart', 'CartController@remove');
+Route::get('remove-from-cart/{id}', 'CartController@remove')->name('remove-from-cart');
 
 Route::delete('removeall-from-cart', 'CartController@removeAll');

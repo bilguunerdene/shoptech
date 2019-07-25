@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Redirect;
 class CartController extends Controller
 {
     public function __construct(){
@@ -86,7 +87,7 @@ class CartController extends Controller
                 session()->put('cart', $cart);
             }
  
-            session()->flash('success', 'Product removed successfully');
+            return Redirect::to('cart')->with("status","Product removed successfully");
         }
     }
     
