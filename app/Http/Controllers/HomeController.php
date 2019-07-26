@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Session;
 class HomeController extends Controller
 {
     /**
@@ -24,6 +25,8 @@ class HomeController extends Controller
     public function index()
     {
         $product = Product::all();
-        return view('home')->with('product',$product);
+        // var_dump($product);
+        // exit;
+        return view('home',compact('product'));
     }
 }

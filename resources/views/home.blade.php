@@ -23,7 +23,7 @@
                 </div>
                 <div style="justify-content:flex-end" class="pcontroller uk-margin uk-text-center uk-flex">
                     <div class="uk-margin-right"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item->id}},{{$item->cnt}})"><span uk-icon="minus"></span></div></div>
-                    <div class=""><input id="inputbtn{{$item->id}}" type="text" class="uk-input inputbtn" value="0"></div>
+                    <div class=""><input id="inputbtn{{$item->id}}" type="text" class="uk-input inputbtn" value="{{in_array($item->id,Session::get('cart'))?Session::get('cart')[$item->id]['quantity']:0}}"></div>
                     <div class="uk-margin-left"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item->id}},{{$item->cnt}})"><span uk-icon="plus"></span></div></div>
                 </div>
             </div>
