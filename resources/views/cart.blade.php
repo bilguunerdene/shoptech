@@ -13,6 +13,7 @@
         <div class="heading">
             <h3>Shopping cart</h3>
         </div>
+        @if(count($items)!=0)
         @foreach($items as $x => $item)
         <hr>
         <div class="row uk-margin" uk-grid>
@@ -26,41 +27,55 @@
             <div class="pcontrol uk-width-1-3">
             <div class="uk-text-right price">SEK {{number_format($item['price'])}}</div>
             <div style="justify-content:flex-end" class="pcontroller uk-margin uk-text-center uk-flex">
-                <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['quantity']}})"><span uk-icon="minus"></span></div></div>
+                <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="minus"></span></div></div>
                 <div class="" style="width:140px"><input id="inputbtn{{$item['id']}}" type="text" class="uk-input inputbtn" value="{{$item['quantity']}}"></div>
-                <div class="uk-margin-left"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item['id']}},{{$item['quantity']}})"><span uk-icon="plus"></span></div></div>
+                <div class="uk-margin-left"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="plus"></span></div></div>
             </div>
         <div class="removeproduct uk-text-right"><a href="{{route('remove-from-cart',$item['id'])}}"><span uk-icon="trash"></span> Remove</a></div>
             </div>
         </div>
         @endforeach
-        @if(!count($items))
+        <hr>
+        <div class="uk-margin">
+            <div class="uk-text-right">
+            <form action="{{ route('order.store') }}" method="POST">
+                @csrf
+                @method('POST')
+            <button type="submit" class="uk-button uk-button-primary">{{__('Order')}}</button>
+            </form>
+            </div>
+        </div>
+        @else
         <hr>
         <div class="uk-margin">
             <span>You have no items in your shopping cart</span>
         </div>
         @endif
     </div></div>
-    <div class="col-md-12 col-lg-4"><div class="uk-card uk-card-default uk-card-body">
-        <div class="heading">
-            <h3>Order information</h3>    
-        </div>    
-        <hr>
-        <div class="uk-grid">
-            <div class="uk-width-1-2 uk-text-left"><span class="">Sub Total</span></div>
-            <div class="uk-width-1-2 uk-text-right"><span class="">Sub Total</span></div>
+    <div class="col-md-12 col-lg-4">
+        
+<div class="uk-card uk-card-default uk-card-body">
+    <div class="heading">
+        <h3>Order information</h3>    
+    </div>    
+    <hr>
+    <div class="uk-grid">
+        <div class="uk-width-1-2 uk-text-left"><span class="">Sub Total</span></div>
+    <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($total)}}</span></div>
+    </div>
+    <hr>
+    <div class="uk-grid">
+            <div class="uk-width-1-2 uk-text-left"><span class="">VAT</span></div>
+    <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($vat=$total*12/100)}}</span></div>
         </div>
         <hr>
-        <div class="uk-grid">
-                <div class="uk-width-1-2 uk-text-left"><span class="">VAT</span></div>
-                <div class="uk-width-1-2 uk-text-right"><span class="">Sub Total</span></div>
-            </div>
-            <hr>
-        <div class="uk-grid">
-                <div class="uk-width-1-2 uk-text-left"><span class="">Total</span></div>
-                <div class="uk-width-1-2 uk-text-right"><span class="">Sub Total</span></div>
-            </div>
-    </div></div>
+    <div class="uk-grid">
+            <div class="uk-width-1-2 uk-text-left"><span class="">Total</span></div>
+    <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($total+$vat)}}</span></div>
+        </div>
+</div>
+
+    </div>
     </div>
 </div>
 @endsection

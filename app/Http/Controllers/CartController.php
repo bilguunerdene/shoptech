@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use Redirect;
+use Session;
 class CartController extends Controller
 {
     public function __construct(){
@@ -12,8 +13,16 @@ class CartController extends Controller
     }
     public function index(){
         $items = session()->get('cart')!=null?session()->get('cart'):array();
+        $cartitem = Session::get('cart');
+        $total = 0;
+        if($cartitem!=null){
+            foreach($cartitem as $item){
+                $total += $item['quantity']*$item['price'];
+                
+            }
+        }
         // var_dump($items);exit;
-        return view('cart',compact('items'));
+        return view('cart',compact('items','total'));
     }
     public function update(Request $request){
         $product = Product::find($request->id);
@@ -26,9 +35,10 @@ class CartController extends Controller
                 $product->id => [
                         "id" => $product->id,
                         "name" => $product->name,
-                        "quantity" => $request->quantity,
+                        "quantity" => $product->cnt,
                         "price" => $product->price,
-                        "photo" => $product->imageurl
+                        "photo" => $product->imageurl,
+                        "cnt" => $product->cnt
                     ]
             ];
  
@@ -40,23 +50,22 @@ class CartController extends Controller
         // if cart not empty then check if this product exist then increment quantity
         if(isset($cart[$product->id])) {
  
-            $cart[$product->id]['quantity']+=$request->quantity;
+            $cart[$product->id]['quantity']+=$product->cnt;
  
             session()->put('cart', $cart);
  
             return redirect()->back()->with('success', 'Product added to cart successfully!');
  
         }
- 
-        // if item not exist in cart then add to cart with quantity = 1
         $cart[$product->id] = [
             "id" => $product->id,
             "name" => $product->name,
-            "quantity" => 1,
+            "quantity" => $product->cnt,
             "price" => $product->price,
-            "photo" => $product->imageurl
+            "photo" => $product->imageurl,
+            "cnt" => $product->cnt
         ];
- 
+
         session()->put('cart', $cart);
  
         return redirect()->back()->with('success', 'Product added to cart successfully!');
@@ -65,12 +74,16 @@ class CartController extends Controller
         $product = Product::find($request->id);
         $cart = session()->get('cart');
         if(isset($cart[$product->id])) {
+            
+            $cart[$product->id]['quantity']-=$product->cnt;
  
-            $cart[$product->id]['quantity']-=$request->quantity;
- 
+            if($cart[$product->id]['quantity']<=0){
+                unset($cart[$product->id]);
+                session()->put('cart', $cart);
+            }
             session()->put('cart', $cart);
  
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
+            return redirect()->back()->with('success', 'Product decreased to cart successfully!');
  
         }
     }

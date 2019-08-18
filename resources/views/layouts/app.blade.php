@@ -1,3 +1,10 @@
+<?php
+$tot = 0;
+if(Session::has('cart'))
+foreach(Session::get('cart') as $item)
+    $tot += $item['quantity'];
+
+?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -35,7 +42,7 @@
                     <div class="sidebartop">
                         <div class="sidebar-logo uk-grid">
                             <div class="logo"></div>
-                            <div class="name">Shoptech</div>
+                            <div class="name">Eanplock</div>
                             <div class="menutoggle">
                                 <a href="#" uk-toggle="target: #offcanvas-nav"><span uk-icon="icon: arrow-left"></span></a>
                             </div>
@@ -45,8 +52,8 @@
                     <hr>
                     <div class="sidebar-content">
                         <ul class="uk-nav">
-                            <li><a href="{{ route('home') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: home"></span><span class="title">{{ __('home') }}</span></a></li>
-                            <li><a href="{{ route('cart') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: cart"></span><span class="title">{{ __('cart') }}</span></a></li>
+                            <li><a href="{{ route('home') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: home"></span><span class="title">{{ __('Home') }}</span></a></li>
+                            <li><a href="{{ route('cart') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: cart"></span><span class="title">{{ __('Cart') }}</span></a></li>
                             <li><a href="{{ route('settings') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: cog"></span><span class="title">{{ __('Settings') }}</span></a></li>
                         </ul>
                     </div>
@@ -54,9 +61,9 @@
             </div>
             </div>
             <div class="searchbox uk-margin-left">
-            <form class="uk-search uk-search-default">
+            <form class="uk-search uk-search-default" action="{{ route('search') }}" method="GET">
                 <span uk-search-icon></span>
-                <input class="uk-search-input mainsearch" type="search" placeholder="Search...">
+            <input class="uk-search-input mainsearch" name="name" value="{{ request('name') }}" type="search" placeholder="{{__('Search')}}...">
             </form>
             </div>
            
@@ -80,10 +87,24 @@
                                 </li>
                             @endif
                         @else
+                        <li class="nav-item dropdown uk-margin-right">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ app()->getLocale() }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="lang/en">
+                                    {{ __('English') }}
+                                </a>    
+                            <a class="dropdown-item" href="lang/se">
+                                    {{ __('Sweden') }}
+                                </a>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <div class="uk-margin-right"><a href="{{route('cart')}}" class="uk-icon-button" uk-icon="icon: cart; ratio: 1.5"></a>
                             @if(Session::has('cart'))
-                            <span class="uk-badge cartbadge">{{sizeof(Session::get('cart'))}}</span>
+                            <span class="uk-badge cartbadge">{{$tot}}</span>
                             @endif
                             </div>
                         </li>
@@ -123,14 +144,22 @@
     </div>
     <script type="text/javascript">
 function minusval(id,quantity){
-    $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())-quantity);
+    $.ajax({
+        "url": '{{ url("minus") }}',
+        "type":"POST",
+        "data": { "_token": "{{ csrf_token() }}","id":id, "quantity":quantity},
+        "success":(html)=>{
+            $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())-quantity);
+        }
+    });
+    
 }
 function addval(id,quantity){
     $.ajax({
         "url": '{{ url("update-cart") }}',
         "type":"POST",
         "data": { "_token": "{{ csrf_token() }}","id":id, "quantity":quantity},
-        "success":()=>{
+        "success":(html)=>{
             $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())+quantity);
         }
     });

@@ -31,5 +31,13 @@
 }
 .cartbadge{
     position: absolute;
-    margin-left: -15px;
+    margin-left: 15px;
+    margin-top: -43px;
+}
+.flag-uk{
+    background-image: url('/images/flag/gb.svg');
+
+}
+.flag-se{
+    background-image: url('/images/flag/sv.svg');
 }
