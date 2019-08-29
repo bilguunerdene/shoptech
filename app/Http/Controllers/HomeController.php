@@ -56,4 +56,9 @@ class HomeController extends Controller
         $product = $product->paginate(12);
         return view('home',compact('product','country','type'));
     }
+    public function welcome(){
+        $country = Country::all();
+        $type = Type::all();
+        return view('welcome',compact('country','type'));
+    }
 }
