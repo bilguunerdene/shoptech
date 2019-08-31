@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Input;
 use App\Type;
 use App\Country;
 use App\Product;
-use Validator,Redirect,Response,File;
+use Validator,Redirect,Response,File,Form,DB;
 class ProductController extends Controller
 {
     public function __construct()
@@ -15,7 +15,11 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        $product = Product::all();
+        // $product = Product::leftJoin('country','country.id','products.countryId')->where('id', 1);
+        $product = DB::table('products')->leftjoin('country','country.id','products.countryId')
+        ->leftjoin('types','types.id','products.type')
+        ->select('products.*','country.name as country','types.name as type')
+        ->get();
         return view('product.list',compact('product'));
     }
     public function show($id){
@@ -23,13 +27,13 @@ class ProductController extends Controller
         return view('product.show',compact('product'));
     }
     public function create(){
-        $type = Type::all();
-        // $country = Country::all();
+        $type =  Type::all('name', 'id');
+        $country = Country::all('name','id');
         // var_dump($items);exit;
         $action = route('product.store');
         $product = null;
         $method = "POST";
-        return view('product.add',compact('type', 'product', 'action', 'method'));
+        return view('product.add',compact('type', 'country', 'product', 'action', 'method'));
     }
     public function destroy($id){
         $res = Product::find($id)->delete();
@@ -41,10 +45,11 @@ class ProductController extends Controller
     }
     public function edit($id){
         $product = Product::find($id);
-        $type = Type::all();
+        $type =  Type::all('name', 'id');
+        $country = Country::all('name','id');
         $action = route('product.update', ['id' => $id]);
         $method = "PUT";
-        return view('product.add',compact('type','product','action','method'));
+        return view('product.add',compact('type','country','product','action','method'));
     }
     public function update(Request $request){
         $rules = array (
@@ -89,6 +94,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
             'type' => 'required',
+            'country' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     );
     $validator = Validator::make ( Input::all (), $rules );
@@ -103,6 +109,7 @@ class ProductController extends Controller
         $product->price = request('price');
         $product->cnt = request('quantity');
         $product->type = request('type');
+        $product->countryId = request('country');
         
         // $product->countryId = request('country');
         $product->detail = request('detail');

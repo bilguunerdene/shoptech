@@ -23,6 +23,12 @@
     <div class="uk-form-controls"><input type="text" name="name" value="{{ $product!=null?$product->name:old('name')}}" class="uk-input required"></div>
     </div>
     <div class="uk-margin">
+        <label class="uk-form-label" for="">Country</label>
+        <div class="uk-form-controls">
+            {{ Form::select('country', $country->pluck('name','id'), ['class' => 'uk-select']) }}
+        </div>
+        </div>
+    <div class="uk-margin">
     <label class="uk-form-label" for="">Barcode</label>
     <div class="uk-form-controls"><input type="text" name="barcode" class="uk-input" value="{{ $product!=null?$product->barcode:old('barcode') }}"></div>
     </div>
