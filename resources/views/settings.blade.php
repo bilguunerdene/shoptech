@@ -8,11 +8,11 @@
 
         <ul class="uk-navbar-nav">
         <li>
-                <a href="#">Type</a>
+                <a href="{{ route('type.index') }}">Type</a>
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="#">Add</a></li>
-                        <li><a href="#">Edit</a></li>
+                        <li class="uk-active"><a href="{{ route('type.create') }}">Add</a></li>
+                        <li><a href="{{ route('type.index') }}">Edit</a></li>
                     </ul>
                 </div>
             </li>
@@ -21,7 +21,7 @@
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
                         <li class="uk-active"><a href="{{ route('product.create') }}">Add</a></li>
-                        <li><a href="#">List</a></li>
+                        <li><a href="{{ route('product.index') }}">List</a></li>
                     </ul>
                 </div>
             </li>

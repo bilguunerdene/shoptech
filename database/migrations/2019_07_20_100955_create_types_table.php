@@ -17,6 +17,7 @@ class CreateTypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('detail')->nullable();
+            $table->string('imageurl')->nullable();
             $table->timestamps();
         });
     }

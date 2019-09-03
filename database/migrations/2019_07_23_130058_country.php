@@ -17,6 +17,7 @@ class Country extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('countrycode')->nullable();
+            $table->string('imageurl')->nullable();
             $table->timestamps();
         });
     }

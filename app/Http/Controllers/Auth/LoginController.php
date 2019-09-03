@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -54,7 +54,7 @@ class LoginController extends Controller
         }else{
             $user = ['email' => Input::get('email'), 'password' => Input::get('password')];
             if(Auth::attempt($user)){
-                return Redirect::to('home');
+                return Redirect::to('/');
             }else{
                 // var_dump($validator);
                 // exit;
