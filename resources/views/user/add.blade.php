@@ -25,7 +25,7 @@
 
     <div class="uk-margin">
     <label class="uk-form-label" for="">Email</label>
-    <div class="uk-form-controls"><input type="text" name="name" value="{{ $user!=null?$user->name:old('name')}}" class="uk-input required"></div>
+    <div class="uk-form-controls"><input type="text" name="email" value="{{ $user!=null?$user->email:old('email')}}" class="uk-input required"></div>
     </div>
 
     <div class="uk-margin">

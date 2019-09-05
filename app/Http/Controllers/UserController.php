@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Permission;
+use App\Branch;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Hash;
 use Validator,Redirect,Response,File,Form,DB;
 class UserController extends Controller
 {
@@ -13,14 +16,19 @@ class UserController extends Controller
     }
     public function index(){
         // $this->list_models();
-        $user = User::all();
+        $user = DB::table('users')->leftjoin('branch','branch.id','users.branchid')
+        ->leftjoin('permission','permission.id','users.permissionId')
+        ->select('users.*','permission.name as permission','branch.name as branch')
+        ->get();
         return view('user.list',compact('user'));
     }
     public function create(){
         $action = route('user.store');
         $method = "POST";
         $user = null;
-        return view('user.add',compact('user','action', 'method'));
+        $permission = Permission::all();
+        $branch = Branch::all();
+        return view('user.add',compact('user','action', 'method','permission','branch'));
     }
     public function store(Request $request){
         $rules = array (
@@ -39,7 +47,7 @@ class UserController extends Controller
         $user->permissionId = request('permission');
         $user->branchid = request('branch');
         $user->password = Hash::make(request('password'));
-
+        $user->status = 1;
         if ($files = $request->file('image')) {
             $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
             $files->move(public_path('images'), $profileImage);

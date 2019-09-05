@@ -13,7 +13,8 @@
         <tr>
             <th class="text-center">#</th>
             <th class="text-center">Name</th>
-            <th class="text-center">Detail</th>
+            <th class="text-center">Permission</th>
+            <th class="text-center">Branch</th>
             <th class="text-center">Created</th>
             <th class="uk-text-center">Edit</th>
         </tr>
@@ -23,7 +24,8 @@
         <tr class="item{{$item->id}}">
             <td class="uk-text-center">{{$x+1}}</td>
             <td class="uk-text-center">{{$item->name}}</td>
-            <td class="uk-text-center">{{$item->detail}}</td>
+            <td class="uk-text-center">{{$item->permission}}</td>
+            <td class="uk-text-center">{{$item->branch}}</td>
             <td class="uk-text-center">{{$item->created_at}}</td>
         <td class="uk-text-center">
         
