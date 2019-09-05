@@ -26,11 +26,11 @@
                 </div>
             </li>
             <li>
-                <a href="#">Branch</a>
+                <a href="{{ route('branch.index') }}">Branch</a>
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="#">Add</a></li>
-                        <li><a href="#">Edit</a></li>
+                        <li class="uk-active"><a href="{{ route('branch.create') }}">Add</a></li>
+                        <li><a href="{{ route('branch.index') }}">Edit</a></li>
                     </ul>
                 </div>
             </li>

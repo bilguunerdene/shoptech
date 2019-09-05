@@ -27,6 +27,8 @@ Route::get('/settings', 'SettingsController@index')->name('settings');
 
 Route::resource('type', 'TypeController');
 
+Route::resource('branch', 'BranchController');
+
 Route::resource('product', 'ProductController');
 
 Route::post('login', 'Auth\LoginController@login');
