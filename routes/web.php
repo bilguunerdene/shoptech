@@ -29,6 +29,10 @@ Route::resource('type', 'TypeController');
 
 Route::resource('branch', 'BranchController');
 
+Route::resource('country', 'CountryController');
+
+Route::resource('user', 'UserController');
+
 Route::resource('product', 'ProductController');
 
 Route::post('login', 'Auth\LoginController@login');

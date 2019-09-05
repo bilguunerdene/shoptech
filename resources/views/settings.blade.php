@@ -34,6 +34,24 @@
                     </ul>
                 </div>
             </li>
+            <li>
+                <a href="{{ route('country.index') }}">Country</a>
+                <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li class="uk-active"><a href="{{ route('country.create') }}">Add</a></li>
+                        <li><a href="{{ route('country.index') }}">Edit</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a href="{{ route('user.index') }}">User</a>
+                <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li class="uk-active"><a href="{{ route('user.create') }}">Add</a></li>
+                        <li><a href="{{ route('user.index') }}">Edit</a></li>
+                    </ul>
+                </div>
+            </li>
         </ul>
 
     </div>

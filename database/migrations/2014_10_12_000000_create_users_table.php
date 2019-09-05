@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->integer('branchid')->nullable();
             $table->string('imageurl')->nullable();
             $table->ipAddress('lastipaddr')->nullable();
+            $table->integer('status')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
