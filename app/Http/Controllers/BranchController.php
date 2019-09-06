@@ -48,8 +48,47 @@ class BranchController extends Controller
         return redirect()->back()->with(['status' => 'Saved.']);
     }
 }
-    public function edit($id = null){
+    public function destroy($id){
+        $res = Branch::find($id)->delete();
+        if($res){
+            return redirect()->back()->with(['status'=>"1","msg"=>"Deleted."]); 
+        }
+        return redirect()->back()->with(['status'=>"0","msg"=>"Error."]); 
+        
+    }
+    public function edit($id){
+        $branch = Branch::find($id);
+        $action = route('branch.update', ['id' => $id]);
+        $method = "PUT";
+        return view('branch.add',compact('branch','action','method'));
+    }
+    public function update(Request $request){
+        $rules = array (
+            'id' => 'required|numeric',
+            'name' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    );
+    $validator = Validator::make ( Input::all (), $rules );
+    if ($validator->fails ())
+        return redirect()->back()->withInput(Input::all())->withErrors($validator->getMessageBag()->ToArray());
+    else {
+           
+    
+        $branch = Branch::find(request('id'));
+        $branch->name = request('name');
+        $branch->location = request('location');
+        $branch->coordinate = request('coordinate');
+           
 
+        if ($files = $request->file('image')) {
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move(public_path('images'), $profileImage);
+            $country->imageurl = $profileImage;
+         }
+
+        $branch->save();
+        return redirect()->back()->with(['status' => 'Updated.']);
+    }
     }
     // private function list_models (){
        

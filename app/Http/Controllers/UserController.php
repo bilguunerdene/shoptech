@@ -47,6 +47,7 @@ class UserController extends Controller
         $user->permissionId = request('permission');
         $user->branchid = request('branch');
         $user->password = Hash::make(request('password'));
+        
         $user->status = 1;
         if ($files = $request->file('image')) {
             $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
@@ -58,8 +59,56 @@ class UserController extends Controller
         return redirect()->back()->with(['status' => 'Saved.']);
     }
 }
-    public function edit($id = null){
+    public function destroy($id){
+        $res = User::find($id)->delete();
+        if($res){
+            return redirect()->back()->with(['status'=>"1","msg"=>"Deleted."]); 
+        }
+        return redirect()->back()->with(['status'=>"0","msg"=>"Error."]); 
+        
+    }
+    public function edit($id){
+        $user = User::find($id);
+        $branch =  Branch::all('name', 'id');
+        $permission = Permission::all('name','id');
+        $action = route('user.update', ['id' => $id]);
+        $method = "PUT";
+        return view('user.add',compact('branch','permission','user','action','method'));
+    }
+    public function update(Request $request){
+        $rules = array (
+            'id' => 'required|numeric',
+            'name' => 'required',
+            'email' => 'required|email',
+            'branch' => 'required',
+            'permission' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    );
+    $validator = Validator::make ( Input::all (), $rules );
+    if ($validator->fails ())
+        return redirect()->back()->withInput(Input::all())->withErrors($validator->getMessageBag()->ToArray());
+    else {
+           
+    
+        $user = User::find(request('id'));
+        $user->name = request('name');
+        $user->email = request('email');
+        $user->branchid = request('branch');
+        $user->permissionId = request('permission');
+        if(request('password')!=''){
+            $user->password = Hash::make(request('password'));
+        }
+        
 
+        if ($files = $request->file('image')) {
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move(public_path('images'), $profileImage);
+            $user->imageurl = $profileImage;
+         }
+
+        $user->save();
+        return redirect()->back()->with(['status' => 'Updated.']);
+    }
     }
     // private function list_models (){
        

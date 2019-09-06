@@ -31,11 +31,11 @@
         
         <!-- <a href="{{route('product.edit',['id'=>$item->id])}}"><div class="btn btn-info"><span uk-icon="pencil"></span></div></a>
         <a href="{{route('product.destroy',['id'=>$item->id])}}"><div class="btn btn-danger"><span uk-icon="trash"></span></div></a> -->
-        <form class="uk-display-inline" action="{{route('type.edit',['id' => $item->id])}}" method="GET">
+        <form class="uk-display-inline" action="{{route('user.edit',['id' => $item->id])}}" method="GET">
         @csrf
         <button class="btn btn-info" type="submit"><span uk-icon="pencil"></span></button>
         </form>
-        <form class="uk-display-inline" action="{{route('type.destroy',['id' => $item->id])}}" method="POST">
+        <form class="uk-display-inline" action="{{route('user.destroy',['id' => $item->id])}}" method="POST">
         @method('DELETE')
         @csrf
         <button class="btn btn-danger" type="submit"><span uk-icon="trash"></span></button>

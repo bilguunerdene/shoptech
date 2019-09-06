@@ -23,11 +23,13 @@
     <div class="uk-form-controls"><input type="text" name="name" value="{{ $product!=null?$product->name:old('name')}}" class="uk-input required"></div>
     </div>
     <div class="uk-margin">
-        <label class="uk-form-label" for="">Country</label>
-        <div class="uk-form-controls">
-            {{ Form::select('country', $country->pluck('name','id'), ['class' => 'uk-select']) }}
-        </div>
-        </div>
+    <label class="uk-form-label" for="">Country</label>
+    <div class="uk-form-controls"><select class="uk-select" name="country" name="" id="">
+        <option value="">- Choose an one -</option>
+    @foreach($country as $val)
+    <option value="{{ $val->id }}" {{old('type')==$val->id||($product!=null?$product->country:'')==$val->id?'selected':''}}>{{ $val->name }}</option>
+    @endforeach
+    </select></div>
     <div class="uk-margin">
     <label class="uk-form-label" for="">Barcode</label>
     <div class="uk-form-controls"><input type="text" name="barcode" class="uk-input" value="{{ $product!=null?$product->barcode:old('barcode') }}"></div>

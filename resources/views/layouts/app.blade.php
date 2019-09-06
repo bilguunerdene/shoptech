@@ -103,7 +103,7 @@ foreach(Session::get('cart') as $item)
                             @endif
                             </div>
                         </li>
-                            <li><img class="uk-border-circle" src="{{ Auth::user()->imageurl==null?asset('images/profile.jpeg'):asset(Auth::user()->imageurl) }}" style="height:40px;width:40px" alt="Profile"></li>
+                            <li><img class="uk-border-circle" src="{{ Auth::user()->imageurl==null?asset('images/profile.jpeg'):asset('images/'.Auth::user()->imageurl) }}" style="height:40px;width:40px" alt="Profile"></li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

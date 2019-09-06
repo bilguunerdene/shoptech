@@ -35,7 +35,7 @@ class CountryController extends Controller
     
         $country = new Country();
         $country->name = request('name');        
-        $country->detail = request('detail');
+        $country->countrycode = request('countrycode');
 
         if ($files = $request->file('image')) {
             $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
@@ -47,8 +47,46 @@ class CountryController extends Controller
         return redirect()->back()->with(['status' => 'Saved.']);
     }
 }
-    public function edit($id = null){
+    public function destroy($id){
+        $res = Country::find($id)->delete();
+        if($res){
+            return redirect()->back()->with(['status'=>"1","msg"=>"Deleted."]); 
+        }
+        return redirect()->back()->with(['status'=>"0","msg"=>"Error."]); 
+        
+    }
+    public function edit($id){
+        $country = Country::find($id);
+        $action = route('country.update', ['id' => $id]);
+        $method = "PUT";
+        return view('country.add',compact('country','action','method'));
+    }
+    public function update(Request $request){
+        $rules = array (
+            'id' => 'required|numeric',
+            'name' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    );
+    $validator = Validator::make ( Input::all (), $rules );
+    if ($validator->fails ())
+        return redirect()->back()->withInput(Input::all())->withErrors($validator->getMessageBag()->ToArray());
+    else {
+           
+    
+        $country = Country::find(request('id'));
+        $country->name = request('name');
+        $country->countrycode = request('countrycode');
+           
 
+        if ($files = $request->file('image')) {
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move(public_path('images'), $profileImage);
+            $country->imageurl = $profileImage;
+         }
+
+        $country->save();
+        return redirect()->back()->with(['status' => 'Updated.']);
+    }
     }
     // private function list_models (){
        
