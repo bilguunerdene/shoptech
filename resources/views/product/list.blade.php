@@ -13,6 +13,7 @@
         <tr>
             <th class="text-center">#</th>
             <th class="text-center">Name</th>
+            <th class="text-center">Image</th>
             <th class="text-center">Type</th>
             <th class="text-center">Country</th>
             <th class="text-center">Price</th>
@@ -26,6 +27,7 @@
         <tr class="item{{$item->id}}">
             <td class="uk-text-center">{{$x+1}}</td>
             <td class="uk-text-center">{{$item->name}}</td>
+            <td class="uk-text-center"><img style="height:50px" src="{{ asset('images/').'/'.$item->imageurl }}" alt=""></td>
             <td class="uk-text-center">{{$item->type}}</td>
             <td class="uk-text-center">{{$item->country}}</td>
             <td class="uk-text-center">{{$item->price}}</td>
