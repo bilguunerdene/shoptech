@@ -1,8 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <div class="uk-container uk-container-expand">
-    
+        <form action="{{ route('order.store') }}" method="POST">
+                @csrf
+                @method('POST')
     <div class="row">
+            
     <div class="col-md-12 col-lg-8">
         <div class="uk-card uk-card-default uk-card-body">
                 @if (session('status'))
@@ -38,11 +41,9 @@
         <hr>
         <div class="uk-margin">
             <div class="uk-text-right">
-            <form action="{{ route('order.store') }}" method="POST">
-                @csrf
-                @method('POST')
+            
             <button type="submit" class="uk-button uk-button-primary">{{__('Order')}}</button>
-            </form>
+            
             </div>
         </div>
         @else
@@ -73,10 +74,36 @@
             <div class="uk-width-1-2 uk-text-left"><span class="">Total</span></div>
     <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($total+$vat)}}</span></div>
         </div>
+    <div class="uk-grid">
+        <div class="uk-width-1-1">
+            <span>Branch:</span>
+            <select name="branch" id="" class="uk-select">
+                    <option value="">- Choose an one -</option>
+                    @foreach($branch as $val)
+                    <option value="{{ $val->id }}">{{ $val->name }}</option>
+                    @endforeach
+            </select>
+        </div>
+        <div class="uk-width-1-1">
+            <span>Order date:</span>
+        <input class="uk-input" type="date" name="orderdate" value="{{ date("Y-m-d") }}">
+        </div>
+        <div class="uk-width-1-1">
+            <span>Description:</span>
+            <textarea class="uk-textarea" rows="5" placeholder="" name="description"></textarea>
+        </div>
+        <div class="uk-width-1-1 uk-margin-top">
+            
+            <button type="submit" class="uk-button uk-button-primary">{{__('Order')}}</button>
+            
+        </div>
+    </div>
 </div>
 
     </div>
+    
     </div>
+</form> 
 </div>
 @endsection
 @yield('scripts')

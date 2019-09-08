@@ -25,11 +25,17 @@ Route::get('/cart', 'CartController@index')->name('cart');
 
 Route::get('/settings', 'SettingsController@index')->name('settings');
 
+Route::get('order/list', 'OrderController@list')->name('order.list');
+
+Route::get('order/user', 'OrderController@user')->name('order.user');
+
 Route::resource('type', 'TypeController');
 
 Route::resource('branch', 'BranchController');
 
 Route::resource('country', 'CountryController');
+
+Route::resource('order', 'OrderController');
 
 Route::resource('user', 'UserController');
 

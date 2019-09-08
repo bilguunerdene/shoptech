@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
+use App\Product, App\Branch;
 use Redirect;
 use Session;
 class CartController extends Controller
@@ -13,6 +13,7 @@ class CartController extends Controller
     }
     public function index(){
         $items = session()->get('cart')!=null?session()->get('cart'):array();
+        $branch = Branch::all();
         $cartitem = Session::get('cart');
         $total = 0;
         if($cartitem!=null){
@@ -22,7 +23,7 @@ class CartController extends Controller
             }
         }
         // var_dump($items);exit;
-        return view('cart',compact('items','total'));
+        return view('cart',compact('items','total','branch'));
     }
     public function update(Request $request){
         $product = Product::find($request->id);

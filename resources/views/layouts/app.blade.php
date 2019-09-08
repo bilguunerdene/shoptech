@@ -110,9 +110,8 @@ foreach(Session::get('cart') as $item)
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"><span uk-icon="icon: user"></span>
+                                <a class="dropdown-item" href="{{ route('order.index') }}"
+                                       ><span uk-icon="icon: user"></span>
                                         {{ __('Profile') }}
                                     </a>    
                                 <a class="dropdown-item" href="{{ route('logout') }}"

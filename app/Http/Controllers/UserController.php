@@ -67,6 +67,7 @@ class UserController extends Controller
         return redirect()->back()->with(['status'=>"0","msg"=>"Error."]); 
         
     }
+    
     public function edit($id){
         $user = User::find($id);
         $branch =  Branch::all('name', 'id');

@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->integer('orderid');
             $table->date('createddate');
             $table->string('user');
+            $table->string('branchid');
             $table->text('description')->nullable();
             $table->date('recdate')->nullable();
             $table->float('subtotal')->nullable();

@@ -8,7 +8,7 @@ use Validator;
 use Auth;
 use Redirect;
 use Illuminate\Support\Facades\Input;
-
+use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     /*
@@ -54,6 +54,9 @@ class LoginController extends Controller
         }else{
             $user = ['email' => Input::get('email'), 'password' => Input::get('password')];
             if(Auth::attempt($user)){
+                $user = Auth::User();
+                $user->lastipaddr = $_SERVER['REMOTE_ADDR'];
+                $user->save();
                 return Redirect::to('/');
             }else{
                 // var_dump($validator);
