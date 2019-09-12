@@ -11,13 +11,13 @@
     <thead>
         <tr>
             <th class="text-center">#</th>
-            <th class="text-center">Order Number</th>
-            <th class="text-center">Branch</th>
-            <th class="text-center">Description</th>
-            <th class="text-center">User</th>
-            <th class="text-center">Deliver date</th>
-            <th class="text-center">Created date</th>
-            <th class="text-center">Total</th>
+            <th class="text-center">{{ __('Order Number') }}</th>
+            <th class="text-center">{{ __('Branch') }}</th>
+            <th class="text-center">{{ __('Description') }}</th>
+            <th class="text-center">{{ __('User') }}</th>
+            <th class="text-center">{{ __('Deliver date') }}</th>
+            <th class="text-center">{{ __('Created') }}</th>
+            <th class="text-center">{{ __('Total') }}</th>
             
         </tr>
     </thead>

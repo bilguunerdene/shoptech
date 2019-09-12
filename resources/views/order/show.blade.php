@@ -1,4 +1,4 @@
-
+<?$sum_tot = 0;?>
 @extends('order.settings')
 
 @section('section')
@@ -11,18 +11,19 @@
     <thead>
         <tr>
             <th class="text-center">#</th>
-            <th class="text-center">Product Number</th>
-            <th class="text-center">Name</th>
-            <th class="text-center">Image</th>
-            <th class="text-center">Barcode</th>
-            <th class="text-center">Price</th>
-            <th class="text-center">Quantity</th>
-            <th class="text-center">Total</th>
+            <th class="text-center">{{ __('Product Number') }}</th>
+            <th class="text-center">{{ __('Name') }}</th>
+            <th class="text-center">{{ __('Image') }}</th>
+            <th class="text-center">{{ __('Barcode') }}</th>
+            <th class="text-center">{{ __('Price') }}</th>
+            <th class="text-center">{{ __('Quantity') }}</th>
+            <th class="text-center">{{ __('Total') }}</th>
             
         </tr>
     </thead>
     <tbody>
         @foreach($order as $x => $item)
+        <?$sum_tot+=$item->price*$item->quantity?>
     <tr style="cursor: pointer" onclick="location.href='{{ route('order.show',$item->id) }}'" class="item{{$item->id}}">
             <td class="uk-text-center">{{$x+1}}</td>
             <td class="uk-text-center">{{$item->productid}}</td>

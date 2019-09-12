@@ -14,7 +14,7 @@
                 </div>
             @endif
         <div class="heading">
-            <h3>Shopping cart</h3>
+            <h3>{{ __('Shopping cart') }}</h3>
         </div>
         @if(count($items)!=0)
         @foreach($items as $x => $item)
@@ -24,8 +24,8 @@
                 <img style="width:150px;max-height:140px" src="{{asset('images').'/'.$item['photo']}}" alt="">
             </div>
             <div class="info uk-width-1-3">
-            <div class="productid">Product ID: <a href="{{route('product.show',$item['id'])}}">{{$item['id']}}</a></div>
-            <div class="productname">Product Name: {{$item['name']}}</div>
+            <div class="productid">{{ __('Product ID') }}: <a href="{{route('product.show',$item['id'])}}">{{$item['id']}}</a></div>
+            <div class="productname">{{ __('Product Name') }}: {{$item['name']}}</div>
             </div>
             <div class="pcontrol uk-width-1-3">
             <div class="uk-text-right price">SEK {{number_format($item['price'])}}</div>
@@ -34,7 +34,7 @@
                 <div class="" style="width:140px"><input id="inputbtn{{$item['id']}}" type="text" class="uk-input inputbtn" value="{{$item['quantity']}}"></div>
                 <div class="uk-margin-left"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="plus"></span></div></div>
             </div>
-        <div class="removeproduct uk-text-right"><a href="{{route('remove-from-cart',$item['id'])}}"><span uk-icon="trash"></span> Remove</a></div>
+        <div class="removeproduct uk-text-right"><a href="{{route('remove-from-cart',$item['id'])}}"><span uk-icon="trash"></span> {{ __('Remove') }}</a></div>
             </div>
         </div>
         @endforeach
@@ -49,7 +49,7 @@
         @else
         <hr>
         <div class="uk-margin">
-            <span>You have no items in your shopping cart</span>
+            <span>{{ __('You have no items in your shopping cart') }}</span>
         </div>
         @endif
     </div></div>
@@ -57,26 +57,26 @@
         
 <div class="uk-card uk-card-default uk-card-body">
     <div class="heading">
-        <h3>Order information</h3>    
+        <h3>{{ __('Order information') }}</h3>    
     </div>    
     <hr>
     <div class="uk-grid">
-        <div class="uk-width-1-2 uk-text-left"><span class="">Sub Total</span></div>
+        <div class="uk-width-1-2 uk-text-left"><span class="">{{ __('Sub Total') }}</span></div>
     <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($total)}}</span></div>
     </div>
     <hr>
     <div class="uk-grid">
-            <div class="uk-width-1-2 uk-text-left"><span class="">VAT</span></div>
+            <div class="uk-width-1-2 uk-text-left"><span class="">{{ __('VAT') }}</span></div>
     <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($vat=$total*12/100)}}</span></div>
         </div>
         <hr>
     <div class="uk-grid">
-            <div class="uk-width-1-2 uk-text-left"><span class="">Total</span></div>
+            <div class="uk-width-1-2 uk-text-left"><span class="">{{ __('Total') }}</span></div>
     <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($total+$vat)}}</span></div>
         </div>
     <div class="uk-grid">
         <div class="uk-width-1-1">
-            <span>Branch:</span>
+            <span>{{ __('Branch') }}:</span>
             <select name="branch" id="" class="uk-select">
                     <option value="">- Choose an one -</option>
                     @foreach($branch as $val)
@@ -85,11 +85,11 @@
             </select>
         </div>
         <div class="uk-width-1-1">
-            <span>Order date:</span>
+            <span>{{ __('Order date') }}:</span>
         <input class="uk-input" type="date" name="orderdate" value="{{ date("Y-m-d") }}">
         </div>
         <div class="uk-width-1-1">
-            <span>Description:</span>
+            <span>{{ __('Description') }}:</span>
             <textarea class="uk-textarea" rows="5" placeholder="" name="description"></textarea>
         </div>
         <div class="uk-width-1-1 uk-margin-top">

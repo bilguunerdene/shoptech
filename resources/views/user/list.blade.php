@@ -12,11 +12,11 @@
     <thead>
         <tr>
             <th class="text-center">#</th>
-            <th class="text-center">Name</th>
-            <th class="text-center">Permission</th>
-            <th class="text-center">Branch</th>
-            <th class="text-center">Created</th>
-            <th class="uk-text-center">Edit</th>
+            <th class="text-center">{{ __('Name') }}</th>
+            <th class="text-center">{{ __('Permission') }}</th>
+            <th class="text-center">{{ __('Branch') }}</th>
+            <th class="text-center">{{ __('Created') }}</th>
+            <th class="uk-text-center">{{ __('Edit') }}</th>
         </tr>
     </thead>
     <tbody>

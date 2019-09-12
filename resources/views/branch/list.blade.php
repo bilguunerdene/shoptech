@@ -12,11 +12,11 @@
     <thead>
         <tr>
             <th class="text-center">#</th>
-            <th class="text-center">Name</th>
-            <th class="text-center">Location</th>
-            <th class="text-center">Coordinate</th>
-            <th class="text-center">Created</th>
-            <th class="uk-text-center">Edit</th>
+            <th class="text-center">{{ __('Name') }}</th>
+            <th class="text-center">{{ __('Location') }}</th>
+            <th class="text-center">{{ __('Coordinate') }}</th>
+            <th class="text-center">{{ __('Created') }}</th>
+            <th class="uk-text-center">{{ __('Edit') }}</th>
         </tr>
     </thead>
     <tbody>

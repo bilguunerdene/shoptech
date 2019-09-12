@@ -16,8 +16,9 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('article_number');
             $table->string('barcode');
-            $table->float('pprice');
+            $table->float('inprice');
             $table->float('price');
             $table->integer('cnt');
             $table->integer('type')->nullable();;

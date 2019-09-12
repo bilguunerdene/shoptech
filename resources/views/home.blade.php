@@ -7,7 +7,7 @@
     <form action="{{ route('filter') }}" method="GET">
             <div class="uk-margin" uk-grid>
                     <div class="uk-width-1-2">
-                        <label for="countryId">Country: </label>
+                        <label for="countryId">{{ __('Country') }}: </label>
                             <select name="countryId" class="uk-select" onchange="this.form.submit()">
                                     <option value="All">All</option>
                                     @foreach($country as $c)
@@ -16,9 +16,9 @@
                                 </select>
                     </div>
                     <div class="uk-width-1-2">
-                        <label for="type">Type: </label>
+                        <label for="type">{{ __('Type') }}: </label>
                             <select name="type" class="uk-select" onchange="this.form.submit()">
-                                    <option value="All">All</option>
+                                    <option value="All">{{ __('All') }}</option>
                                     @foreach($type as $c)
                                 <option value="{{ $c->id }}" {{$c->id==request('type')?'selected':''}}>{{ $c->name }}</option>
                                     @endforeach

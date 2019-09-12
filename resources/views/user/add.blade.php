@@ -19,17 +19,17 @@
     @method($method)
     <input type="hidden" name="id" value="{{$user!=null?$user->id:''}}">
     <div class="uk-margin">
-    <label class="uk-form-label" for="">Name</label>
+    <label class="uk-form-label" for="">{{ __('Name') }}</label>
     <div class="uk-form-controls"><input type="text" name="name" value="{{ $user!=null?$user->name:old('name')}}" class="uk-input required"></div>
     </div>
 
     <div class="uk-margin">
-    <label class="uk-form-label" for="">Email</label>
+    <label class="uk-form-label" for="">{{ __('Email') }}</label>
     <div class="uk-form-controls"><input type="text" name="email" value="{{ $user!=null?$user->email:old('email')}}" class="uk-input required"></div>
     </div>
 
     <div class="uk-margin">
-    <label class="uk-form-label" for="">Permission</label>
+    <label class="uk-form-label" for="">{{ __('Permission') }}</label>
     <div class="uk-form-controls"><select class="uk-select" name="permission" name="" id="">
         <option value="">- Choose an one -</option>
     @foreach($permission as $val)
@@ -38,7 +38,7 @@
     </select></div>
        
     <div class="uk-margin">
-    <label class="uk-form-label" for="">Branch</label>
+    <label class="uk-form-label" for="">{{ __('Branch') }}</label>
     <div class="uk-form-controls"><select class="uk-select" name="branch" name="" id="">
         <option value="">- Choose an one -</option>
     @foreach($branch as $val)
@@ -47,7 +47,7 @@
     </select></div>
 
     <div class="uk-margin">
-    <label class="uk-form-label" for="">Image</label>
+    <label class="uk-form-label" for="">{{ __('Image') }}</label>
     <div class="uk-form-controls" style="margin-left:15px" uk-form-custom="target: true">
         <input type="file" name="image">
     <input class="uk-input uk-form-width-medium" type="text" placeholder="{{ $user!=null?$user->imageurl:(old('imageurl')!=null?old('imageurl'):'Select file') }}" disabled>
@@ -58,7 +58,7 @@
     <!-- <button class="uk-button uk-button-default">Submit</button> -->
     </div>
     <div class="uk-margin">
-    <label class="uk-form-label" for="">Password</label>
+    <label class="uk-form-label" for="">{{ __('Password') }}</label>
     <div class="uk-form-controls"><input type="password" name="password" value="{{ $user!=null?'':old('password')}}" class="uk-input required"></div>
     </div>
     

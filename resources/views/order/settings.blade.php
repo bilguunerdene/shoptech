@@ -8,11 +8,11 @@
 
         <ul class="uk-navbar-nav">
         <li>
-                <a href="{{ route('order.user') }}">Account Detail</a>
+                <a href="{{ route('order.user') }}">{{ __('Account Detail') }}</a>
                
             </li>
             <li>
-                <a href="{{ route('order.list') }}">Order History</a>
+                <a href="{{ route('order.list') }}">{{ __('Order History') }}</a>
                 
             </li>
            

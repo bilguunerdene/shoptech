@@ -8,47 +8,47 @@
 
         <ul class="uk-navbar-nav">
         <li>
-                <a href="{{ route('type.index') }}">Type</a>
+                <a href="{{ route('type.index') }}">{{ __('Type') }}</a>
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="{{ route('type.create') }}">Add</a></li>
-                        <li><a href="{{ route('type.index') }}">Edit</a></li>
+                        <li class="uk-active"><a href="{{ route('type.create') }}">{{ __('Add') }}</a></li>
+                        <li><a href="{{ route('type.index') }}">{{ __('Edit') }}</a></li>
                     </ul>
                 </div>
             </li>
             <li>
-                <a href="{{ route('product.index') }}">Product</a>
+                <a href="{{ route('product.index') }}">{{ __('Product') }}</a>
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="{{ route('product.create') }}">Add</a></li>
-                        <li><a href="{{ route('product.index') }}">List</a></li>
+                        <li class="uk-active"><a href="{{ route('product.create') }}">{{ __('Add') }}</a></li>
+                        <li><a href="{{ route('product.index') }}">{{ __('List') }}</a></li>
                     </ul>
                 </div>
             </li>
             <li>
-                <a href="{{ route('branch.index') }}">Branch</a>
+                <a href="{{ route('branch.index') }}">{{ __('Branch') }}</a>
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="{{ route('branch.create') }}">Add</a></li>
-                        <li><a href="{{ route('branch.index') }}">Edit</a></li>
+                        <li class="uk-active"><a href="{{ route('branch.create') }}">{{ __('Add') }}</a></li>
+                        <li><a href="{{ route('branch.index') }}">{{ __('Edit') }}</a></li>
                     </ul>
                 </div>
             </li>
             <li>
-                <a href="{{ route('country.index') }}">Country</a>
+                <a href="{{ route('country.index') }}">{{ __('Country') }}</a>
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="{{ route('country.create') }}">Add</a></li>
-                        <li><a href="{{ route('country.index') }}">Edit</a></li>
+                        <li class="uk-active"><a href="{{ route('country.create') }}">{{ __('Add') }}</a></li>
+                        <li><a href="{{ route('country.index') }}">{{ __('Edit') }}</a></li>
                     </ul>
                 </div>
             </li>
             <li>
-                <a href="{{ route('user.index') }}">User</a>
+                <a href="{{ route('user.index') }}">{{ __('User') }}</a>
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="{{ route('user.create') }}">Add</a></li>
-                        <li><a href="{{ route('user.index') }}">Edit</a></li>
+                        <li class="uk-active"><a href="{{ route('user.create') }}">{{ __('Add') }}</a></li>
+                        <li><a href="{{ route('user.index') }}">{{ __('Edit') }}</a></li>
                     </ul>
                 </div>
             </li>

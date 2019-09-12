@@ -14,7 +14,7 @@ foreach(Session::get('cart') as $item)
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Eanplock') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -38,7 +38,7 @@ foreach(Session::get('cart') as $item)
         <a uk-toggle="target: #offcanvas-nav" class="uk-navbar-toggle" uk-navbar-toggle-icon href="#"></a>
     </div>
             <div id="offcanvas-nav" uk-offcanvas="overlay: true">
-                <div class="uk-offcanvas-bar sidebar">
+                <div style="background-image: url(images/banner.jpg);" class="uk-offcanvas-bar sidebar">
                     <div class="sidebartop">
                         <div class="sidebar-logo uk-grid">
                             <div class="logo"></div>

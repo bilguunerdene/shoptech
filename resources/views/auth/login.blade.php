@@ -13,6 +13,7 @@
         <!-- Styles -->
         <style>
             html, body {
+                background: url(images/banner.jpg);
                 background-color: #f9fafb;
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
@@ -68,8 +69,9 @@
         <div class="flex-center position-ref full-height">
 
             <div class="content">
+            <img class="first-slide" src="images/logo.png" alt="First slide">
                 <div class="title m-b-md">
-                    Eanplock
+                    <!-- Eanplock -->
                 </div>
                 @error('email')
                     <div class="uk-alert-danger" uk-alert>
@@ -102,10 +104,10 @@
                     
                     </div>
                 </div>
-                <button type="submit" class="uk-button uk-button-default">Login</button>
+                <button type="submit" style="background-color:#f66531" class="uk-button uk-button-primary">Login</button>
                 @if (Route::has('password.request'))
                                     <div class="uk-width-1-1 uk-margin">
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link" style="color:#f66531" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                     </div>
