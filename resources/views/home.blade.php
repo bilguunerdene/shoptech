@@ -37,7 +37,7 @@
                 <img style="width:150px;max-height:140px" src="{{asset('images').'/'.$item->imageurl}}" alt="">
                 </div>
                 <div class="uk-text-left">
-                    <span>{{$item->barcode}}</span>
+                    <span>{{$item->article_number}}</span>
                 </div>
                 <div class="price uk-text-right">
                     <span class="uk-text-bold uk-text-emphasis">SEK {{number_format($item->price)}}</span>

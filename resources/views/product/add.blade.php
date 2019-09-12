@@ -19,6 +19,10 @@
     @method($method)
     <input type="hidden" name="id" value="{{$product!=null?$product->id:''}}">
     <div class="uk-margin">
+    <label class="uk-form-label" for="">{{ __('Article Number') }}</label>
+    <div class="uk-form-controls"><input type="text" name="article_number" value="{{ $product!=null?$product->name:old('article_number')}}" class="uk-input required"></div>
+    </div>
+    <div class="uk-margin">
     <label class="uk-form-label" for="">{{ __('Name') }}</label>
     <div class="uk-form-controls"><input type="text" name="name" value="{{ $product!=null?$product->name:old('name')}}" class="uk-input required"></div>
     </div>
@@ -35,7 +39,11 @@
     <div class="uk-form-controls"><input type="text" name="barcode" class="uk-input" value="{{ $product!=null?$product->barcode:old('barcode') }}"></div>
     </div>
     <div class="uk-margin">
-    <label class="uk-form-label" for="">{{ __('Price') }}</label>
+    <label class="uk-form-label" for="">{{ __('In Price') }}</label>
+    <div class="uk-form-controls"><input type="text" name="inprice" class="uk-input" value="{{ $product!=null?$product->inprice:old('inprice') }}"></div>
+    </div>
+    <div class="uk-margin">
+    <label class="uk-form-label" for="">{{ __('Out Price') }}</label>
     <div class="uk-form-controls"><input type="text" name="price" class="uk-input" value="{{ $product!=null?$product->price:old('price') }}"></div>
     </div>
     <div class="uk-margin">

@@ -54,6 +54,7 @@ class ProductController extends Controller
     public function update(Request $request){
         $rules = array (
             'id' => 'required|numeric',
+            'article_number' => 'required',
             'name' => 'required',
             'barcode' => 'required|numeric',
             'price' => 'required|numeric',
@@ -68,9 +69,11 @@ class ProductController extends Controller
            
     
         $product = Product::find(request('id'));
+        $product->article_number = request('article_number');
         $product->name = request('name');
         $product->barcode = request('barcode');
         $product->price = request('price');
+        $product->inprice = request('inprice');
         $product->cnt = request('quantity');
         $product->type = request('type');
         
@@ -90,7 +93,9 @@ class ProductController extends Controller
     public function store(Request $request){
         $rules = array (
             'name' => 'required',
+            'article_number' => 'required',
             'barcode' => 'required|numeric',
+            'inprice' => 'required|numeric',
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
             'type' => 'required',
@@ -105,7 +110,9 @@ class ProductController extends Controller
     
         $product = new Product();
         $product->name = request('name');
+        $product->article_number = request('article_number');
         $product->barcode = request('barcode');
+        $product->inprice = request('inprice');
         $product->price = request('price');
         $product->cnt = request('quantity');
         $product->type = request('type');
