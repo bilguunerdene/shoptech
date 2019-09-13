@@ -98,9 +98,7 @@ foreach(Session::get('cart') as $item)
                         </li>
                         <li class="nav-item">
                             <div class="uk-margin-right"><a href="{{route('cart')}}" class="uk-icon-button" uk-icon="icon: cart; ratio: 1.5"></a>
-                            @if(Session::has('cart'))
                             <span class="uk-badge cartbadge">{{$tot}}</span>
-                            @endif
                             </div>
                         </li>
                             <li><img class="uk-border-circle" src="{{ Auth::user()->imageurl==null?asset('images/profile.jpeg'):asset('images/'.Auth::user()->imageurl) }}" style="height:40px;width:40px" alt="Profile"></li>
@@ -154,6 +152,7 @@ function addval(id,quantity){
         "type":"POST",
         "data": { "_token": "{{ csrf_token() }}","id":id, "quantity":quantity},
         "success":(html)=>{
+            $(".cartbadge").html(parseInt($(".cartbadge").html())+quantity);
             $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())+quantity);
         }
     });

@@ -52,7 +52,7 @@
 <div class="uk-clearfix">
     <div class="uk-float-right">
         <h3 class="uk-float-left">Total: </h3>
-        <span class="uk-float-left uk-text-right uk-text-large" style="width:250px;">SEK {{number_format(($sum_tot*12/100+$sum_tot),2)}}</span>
+        <span class="uk-float-left uk-text-right uk-text-large uk-text-bold" style="width:250px;">SEK {{number_format(($sum_tot*12/100+$sum_tot),2)}}</span>
     </div>
 </div>
 @endsection
