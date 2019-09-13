@@ -1,4 +1,4 @@
-<?$sum_tot = 0;?>
+@php($sum_tot = 0)
 @extends('order.settings')
 
 @section('section')
@@ -23,7 +23,7 @@
     </thead>
     <tbody>
         @foreach($order as $x => $item)
-        <?$sum_tot+=$item->price*$item->quantity?>
+        @php($sum_tot+=$item->price*$item->quantity)
     <tr style="cursor: pointer" onclick="location.href='{{ route('order.show',$item->id) }}'" class="item{{$item->id}}">
             <td class="uk-text-center">{{$x+1}}</td>
             <td class="uk-text-center">{{$item->productid}}</td>
@@ -37,5 +37,22 @@
         @endforeach
     </tbody>
 </table>
-
+<div class="uk-clearfix">
+    <div class="uk-float-right">
+        <h3 class="uk-float-left">Sub Total: </h3>
+        <span class="uk-float-left uk-text-right uk-text-large" style="width:250px;">SEK {{number_format($sum_tot,2)}}</span>
+    </div>
+</div>
+<div class="uk-clearfix">
+    <div class="uk-float-right">
+        <h3 class="uk-float-left">VAT: </h3>
+        <span class="uk-float-left uk-text-right uk-text-large" style="width:250px;">SEK {{number_format($sum_tot*12/100,2)}}</span>
+    </div>
+</div>
+<div class="uk-clearfix">
+    <div class="uk-float-right">
+        <h3 class="uk-float-left">Total: </h3>
+        <span class="uk-float-left uk-text-right uk-text-large" style="width:250px;">SEK {{number_format(($sum_tot*12/100+$sum_tot),2)}}</span>
+    </div>
+</div>
 @endsection

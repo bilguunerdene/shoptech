@@ -3,15 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Session;
 use App\Order,App\Suborder;
-use Auth,DB;
+use Validator,Redirect,Response,File,Form,DB,Auth;
 class OrderController extends Controller
 {
     public function index(){
         return view('order.settings');
     }
     public function store(){
+        $rules = array (
+            'branch' => 'required',
+            'orderdate' => 'required'
+    );
+    $validator = Validator::make ( Input::all (), $rules );
+    if ($validator->fails ())
+        return redirect()->back()->withInput(Input::all())->withErrors($validator->getMessageBag()->ToArray());
+    else {
         $orderid = DB::table('orders')->insertGetId(
             [ 'orderid' => 1,
               'createddate' => date('Y-m-d'),
@@ -33,6 +42,7 @@ class OrderController extends Controller
         }
         Session::forget('cart');
         return redirect()->back()->with(['status' => 'Successfully ordered.']);
+    }
     }
     public function list(){
         $order = DB::table('orders')->leftjoin('branch','branch.id','orders.branchid')
