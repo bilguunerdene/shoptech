@@ -41,3 +41,21 @@
 .flag-se{
     background-image: url('/images/flag/sv.svg');
 }
+@media screen and (max-width: 768px){
+        .lang , .profile, .dropdown {
+            display:none;
+        }
+}
+@media screen and (min-width: 768px){
+    .logout , .profilemenu, .langmenu {
+        display:none;
+    }
+}
+.navbar-expand-md .navbar-collapse{
+    display:flex;
+    flex-basis: auto;
+    
+}
+body{
+    background-color: #fff;
+}

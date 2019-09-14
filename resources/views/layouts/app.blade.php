@@ -52,9 +52,12 @@ foreach(Session::get('cart') as $item)
                     <hr>
                     <div class="sidebar-content">
                         <ul class="uk-nav">
+                                <li><a href="{{ route('order.index') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: user"></span><span class="title">{{ __('Profile') }}</span></a></li>
                             <li><a href="{{ route('home') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: home"></span><span class="title">{{ __('Home') }}</span></a></li>
                             <li><a href="{{ route('cart') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: cart"></span><span class="title">{{ __('Cart') }}</span></a></li>
                             <li><a href="{{ route('settings') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: cog"></span><span class="title">{{ __('Settings') }}</span></a></li>
+                            <li><a href="lang/{{ app()->getLocale()=="en"?"se":"en" }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: world"></span><span class="title">{{ app()->getLocale()=="en"?"Sweden":"English" }}</span></a></li>
+                            <li><a href="{{ route('logout') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: sign-out"></span><span class="title">{{ __('Logout') }}</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -82,7 +85,7 @@ foreach(Session::get('cart') as $item)
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @else
-                        <li class="nav-item dropdown uk-margin-right">
+                        <li class="nav-item dropdown uk-margin-right lang">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ app()->getLocale() }} <span class="caret"></span>
                             </a>
@@ -96,12 +99,12 @@ foreach(Session::get('cart') as $item)
                                 </a>
                             </div>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item cart">
                             <div class="uk-margin-right"><a href="{{route('cart')}}" class="uk-icon-button" uk-icon="icon: cart; ratio: 1.5"></a>
                             <span class="uk-badge cartbadge">{{$tot}}</span>
                             </div>
                         </li>
-                            <li><img class="uk-border-circle" src="{{ Auth::user()->imageurl==null?asset('images/profile.jpeg'):asset('images/'.Auth::user()->imageurl) }}" style="height:40px;width:40px" alt="Profile"></li>
+                            <li class="profile"><img class="uk-border-circle" src="{{ Auth::user()->imageurl==null?asset('images/profile.jpeg'):asset('images/'.Auth::user()->imageurl) }}" style="height:40px;width:40px" alt="Profile"></li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
