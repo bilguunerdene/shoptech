@@ -23,7 +23,9 @@ class ProductController extends Controller
         return view('product.list',compact('product'));
     }
     public function show($id){
-        $product = Product::find($id);
+        $product = DB::table("products")->leftjoin('country','country.id','products.countryId')
+        ->leftjoin('types','types.id','products.type')->where("products.id",$id)
+        ->select('products.*','country.name as country','types.name as type')->get();
         return view('product.show',compact('product'));
     }
     public function create(){
