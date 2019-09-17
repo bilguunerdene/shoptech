@@ -60,7 +60,7 @@ class ProductController extends Controller
             'id' => 'required|numeric',
             'article_number' => 'required',
             'name' => 'required',
-            'barcode' => 'required|numeric',
+            'barcode' => 'required',
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
             'type' => 'required',
@@ -98,7 +98,7 @@ class ProductController extends Controller
         $rules = array (
             'name' => 'required',
             'article_number' => 'required',
-            'barcode' => 'required|numeric',
+            'barcode' => 'required',
             'inprice' => 'required|numeric',
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
