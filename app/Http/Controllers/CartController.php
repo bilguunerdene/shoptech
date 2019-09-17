@@ -18,7 +18,7 @@ class CartController extends Controller
         $total = 0;
         if($cartitem!=null){
             foreach($cartitem as $item){
-                $total += $item['quantity']*$item['price'];
+                $total += $item['quantity']*$item['inprice'];
                 
             }
         }
@@ -38,6 +38,7 @@ class CartController extends Controller
                         "name" => $product->name,
                         "quantity" => $product->cnt,
                         "price" => $product->price,
+                        "inprice" => $product->inprice,
                         "photo" => $product->imageurl,
                         "cnt" => $product->cnt
                     ]
@@ -63,6 +64,7 @@ class CartController extends Controller
             "name" => $product->name,
             "quantity" => $product->cnt,
             "price" => $product->price,
+            "inprice" => $product->inprice,
             "photo" => $product->imageurl,
             "cnt" => $product->cnt
         ];
