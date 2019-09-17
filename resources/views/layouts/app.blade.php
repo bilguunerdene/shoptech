@@ -144,12 +144,14 @@ function minusval(id,quantity){
         "type":"POST",
         "data": { "_token": "{{ csrf_token() }}","id":id, "quantity":quantity},
         "success":(html)=>{
+            $(".cartbadge").html(parseInt($(".cartbadge").html())-quantity);
             $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())-quantity);
         }
     });
     
 }
 function addval(id,quantity){
+    quantity = parseInt(quantity);
     $.ajax({
         "url": '{{ url("update-cart") }}',
         "type":"POST",

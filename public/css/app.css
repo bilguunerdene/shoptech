@@ -10849,6 +10849,21 @@ a.text-dark:focus {
   }
 }
 
+.showtable {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.showtable tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.showtable td {
+  padding: 8px;
+}
+
 .mainsearch {
   border: 0px !important;
   border-bottom: 1px solid #e5e5e5 !important;

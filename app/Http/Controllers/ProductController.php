@@ -26,6 +26,8 @@ class ProductController extends Controller
         $product = DB::table("products")->leftjoin('country','country.id','products.countryId')
         ->leftjoin('types','types.id','products.type')->where("products.id",$id)
         ->select('products.*','country.name as country','types.name as type')->get();
+        // print_r($product);
+        // exit;
         return view('product.show',compact('product'));
     }
     public function create(){
