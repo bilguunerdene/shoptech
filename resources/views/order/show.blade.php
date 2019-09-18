@@ -40,7 +40,7 @@
 <div class="uk-clearfix">
     <div class="uk-float-left">
         
-    <a href="{{ route('downloadpdf',1) }}"><button class="uk-button-primary uk-button" >Download as PDF</button></a>
+    <a href="{{ route('downloadpdf',$orderid) }}"><button class="uk-button-primary uk-button" >Download as PDF</button></a>
     </div>
     <div class="uk-float-right">
         <h3 class="uk-float-left">Sub Total: </h3>
