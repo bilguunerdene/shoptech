@@ -34,7 +34,7 @@
         <div class="uk-card uk-card-default uk-card-body">
             <div>
                 <div class="image uk-display-inline-block">
-                <a href="{{route('product.show',$item->id)}}"><img style="width:150px;max-height:140px" src="{{asset('images').'/'.$item->imageurl}}" alt=""></a>
+                <a href="{{route('product.show',$item->id)}}"><img src="{{asset('images').'/'.$item->imageurl}}" alt=""></a>
                 </div>
                 <div class="uk-text-left">
                     <span>{{$item->article_number}}</span>

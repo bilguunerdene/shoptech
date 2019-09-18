@@ -19,7 +19,6 @@ class CartController extends Controller
         if($cartitem!=null){
             foreach($cartitem as $item){
                 $total += $item['quantity']*$item['inprice'];
-                
             }
         }
         // var_dump($items);exit;

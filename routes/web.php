@@ -51,6 +51,6 @@ Route::delete('removeall-from-cart', 'CartController@removeAll');
 
 Route::get('lang/{locale}','LocalizationController@index');
 
-Route::get('downloadpdf/{id}','OrderController@downloadpdf');
+Route::get('downloadpdf/{id}','OrderController@downloadpdf')->name('downloadpdf');
 
 Route::resource("order","OrderController");

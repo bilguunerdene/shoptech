@@ -31,7 +31,7 @@
             <td class="uk-text-center">{{$item->username}}</td>
             <td class="uk-text-center">{{$item->recdate}}</td>
             <td class="uk-text-center">{{$item->createddate}}</td>
-            <td class="uk-text-center">{{$item->total}}</td>
+            <td class="uk-text-center">SEK {{number_format($item->total,2)}}</td>
         </tr>
         @endforeach
     </tbody>
