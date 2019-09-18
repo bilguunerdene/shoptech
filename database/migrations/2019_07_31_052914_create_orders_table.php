@@ -21,9 +21,9 @@ class CreateOrdersTable extends Migration
             $table->string('branchid');
             $table->text('description')->nullable();
             $table->date('recdate')->nullable();
-            $table->float('subtotal')->nullable();
-            $table->float('vat')->nullable();
-            $table->float('total')->nullable();
+            $table->double('subtotal')->nullable();
+            $table->double('vat')->nullable();
+            $table->double('total')->nullable();
             $table->integer('status')->nullable();
         });
     }

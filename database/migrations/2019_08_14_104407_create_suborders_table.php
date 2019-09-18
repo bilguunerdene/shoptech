@@ -18,7 +18,7 @@ class CreateSubordersTable extends Migration
             $table->integer('orderid');
             $table->integer('productid');
             $table->integer('quantity');
-            $table->float('price');
+            $table->double('price');
             $table->date('createddate');
             $table->timestamps();
         });

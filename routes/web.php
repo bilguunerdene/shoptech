@@ -35,8 +35,6 @@ Route::resource('branch', 'BranchController');
 
 Route::resource('country', 'CountryController');
 
-Route::resource('order', 'OrderController');
-
 Route::resource('user', 'UserController');
 
 Route::resource('product', 'ProductController');
@@ -52,5 +50,7 @@ Route::get('remove-from-cart/{id}', 'CartController@remove')->name('remove-from-
 Route::delete('removeall-from-cart', 'CartController@removeAll');
 
 Route::get('lang/{locale}','LocalizationController@index');
+
+Route::get('downloadpdf/{id}','OrderController@downloadpdf');
 
 Route::resource("order","OrderController");
