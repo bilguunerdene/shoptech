@@ -20,7 +20,7 @@
     <input type="hidden" name="id" value="{{$product!=null?$product->id:''}}">
     <div class="uk-margin">
     <label class="uk-form-label" for="">{{ __('Article Number') }}</label>
-    <div class="uk-form-controls"><input type="text" name="article_number" value="{{ $product!=null?$product->name:old('article_number')}}" class="uk-input required"></div>
+    <div class="uk-form-controls"><input type="text" name="article_number" value="{{ $product!=null?$product->article_number:old('article_number')}}" class="uk-input required"></div>
     </div>
     <div class="uk-margin">
     <label class="uk-form-label" for="">{{ __('Name') }}</label>
@@ -31,7 +31,7 @@
     <div class="uk-form-controls"><select class="uk-select" name="country" name="" id="">
         <option value="">- Choose an one -</option>
     @foreach($country as $val)
-    <option value="{{ $val->id }}" {{old('type')==$val->id||($product!=null?$product->country:'')==$val->id?'selected':''}}>{{ $val->name }}</option>
+    <option value="{{ $val->id }}" {{old('type')==$val->id||($product!=null?$product->countryId:'')==$val->id?'selected':''}}>{{ $val->name }}</option>
     @endforeach
     </select></div>
     <div class="uk-margin">
