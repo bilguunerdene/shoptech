@@ -42,7 +42,7 @@ class OrderController extends Controller
             $suborder->save();
         }
         $order = Order::find($orderid);
-        $order->total = ($total/12)*$total;
+        $order->total = ($total*12/100)+$total;
         $order->save();
         $user = Auth::user();
         $branch = Branch::find(request('branch'));
@@ -60,7 +60,7 @@ class OrderController extends Controller
     }
     }
     public function list(){
-        $asd = $this->downloadpdf(1);
+        // $asd = $this->downloadpdf(1);
         // header("Content-Type: application/pdf");
         // echo ($asd);
         // exit;
