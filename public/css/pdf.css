@@ -1,6 +1,6 @@
 @font-face {
   font-family: SourceSansPro;
-  src: url(SourceSansPro-Regular.ttf);
+  /* src: url(../fonts/SourceSansPro-Regular.ttf); */
 }
 
 .clearfix:after {
@@ -16,8 +16,8 @@ a {
 
 body {
   position: relative;
-  width: 21cm;  
-  height: 29.7cm; 
+  width: 100%;  
+  height: auto; 
   margin: 0 auto; 
   color: #555555;
   background: #FFFFFF; 
@@ -42,7 +42,7 @@ header {
 }
 
 #company {
-  float: right;
+  /* float: right; */
   text-align: right;
 }
 
@@ -68,7 +68,7 @@ h2.name {
 }
 
 #invoice {
-  float: right;
+  /* float: right; */
   text-align: right;
 }
 
@@ -94,7 +94,7 @@ table {
 
 table th,
 table td {
-  padding: 20px;
+  padding: 15px;
   background: #EEEEEE;
   text-align: center;
   border-bottom: 1px solid #FFFFFF;
@@ -126,7 +126,7 @@ table .desc {
   text-align: left;
 }
 
-table .unit {
+table .unit, table .name, table .image {
   background: #DDDDDD;
 }
 
@@ -149,7 +149,7 @@ table tbody tr:last-child td {
 }
 
 table tfoot td {
-  padding: 10px 20px;
+  padding: 10px 15px;
   background: #FFFFFF;
   border-bottom: none;
   font-size: 1.2em;

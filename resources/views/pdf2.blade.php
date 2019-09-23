@@ -3,18 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>Example 2</title>
-  <link rel="stylesheet" href="{{asset('css/style.css')}}" media="all" />
+  <link rel="stylesheet" href="{{public_path('css/pdf.css')}}" media="all" />
   </head>
   <body>
     <header class="clearfix">
       <div id="logo">
-      <img src="{{asset('images/logo.png')}}">
+      <img src="{{public_path('images/logo.png')}}">
       </div>
       <div id="company">
         <h2 class="name">Eanplock</h2>
-        <div>455 Foggy Heights, AZ 85004, US</div>
-        <div>(602) 519-0450</div>
-        <div><a href="mailto:company@example.com">company@example.com</a></div>
+        <div>Eanplock Ethnic Adviser Norden AB </div>
+        <div>Fagerstagatan 5 163 53 Spånga, Sweden</div>
+        <div>+46 (0) 41024741</div>
+        <div><a href="mailto:info@eanplock.se">info@eanplock.se</a></div>
       </div>
       </div>
     </header>
@@ -23,70 +24,69 @@
         <div id="client">
           <div class="to">INVOICE FROM:</div>
           <h2 class="name">{{ $order[0]->username }}</h2>
-          <div class="address">796 Silver Harbour, TX 79273, US</div>
-          <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+        <div class="email"><a href="mailto:{{$order[0]->useremail}}">{{$order[0]->useremail}}</a></div>
         </div>
         <div id="invoice">
-          <h1>INVOICE 3-2-1</h1>
-          <div class="date">Date of Invoice: 01/06/2014</div>
-          <div class="date">Due Date: 30/06/2014</div>
+        <h1>{{__('Order').' - '.$order[0]->id}}</h1>
+        <div>{{__('Branch name').': '.$order[0]->branchname}}</div>
+        <div>{{__('Branch location').': '.$order[0]->location}}</div>
+        <div>{{__('Branch coordinate').': '.$order[0]->coordinate}}</div>
+        <div class="date">{{__('Ordered date').': '.$order[0]->createddate}}</div>
+        <div class="date">{{__('Due date').': '.$order[0]->recdate}}</div>
+        
         </div>
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
             <th class="no">#</th>
-            <th class="desc">DESCRIPTION</th>
-            <th class="unit">UNIT PRICE</th>
-            <th class="qty">QUANTITY</th>
-            <th class="total">TOTAL</th>
+            <th class="image">{{__('Image')}}</th>
+            <th>{{ __('Article Number') }}</th>
+            <th class="name">{{ __('Name') }}</th>
+            <th>{{__('Barcode')}}</th>
+            <th class="unit">{{__('Price')}}</th>
+            <th class="qty">{{ __('Quantity') }}</th>
+            <th class="total">{{__('Total')}}</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="no">01</td>
-            <td class="desc"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">30</td>
-            <td class="total">$1,200.00</td>
-          </tr>
-          <tr>
-            <td class="no">02</td>
-            <td class="desc"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">80</td>
-            <td class="total">$3,200.00</td>
-          </tr>
-          <tr>
-            <td class="no">03</td>
-            <td class="desc"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">20</td>
-            <td class="total">$800.00</td>
-          </tr>
+          @php($sum_tot = 0)
+                @foreach($suborder as $num => $item)
+                @php($sum_tot+=$item->price*$item->quantity)
+                <tr>
+                    <td class="no">{{$num+1}}</td>
+                    <td class="image"><img height="50px" src="{{public_path('images/'.$item->imageurl)}}" alt="Product image"></td>
+                    <td>{{$item->article_number}}</td>
+                    <td class="name">{{$item->name}}</td>
+                    <td>{{$item->barcode}}</td>
+                    <td class="unit">SEK {{number_format($item->price,2)}}</td>
+                    <td class="qty">{{$item->quantity}}</td>
+                    <td class="total">SEK {{number_format($item->quantity*$item->price,2)}}</td>
+                </tr>
+                @endforeach
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="2"></td>
-            <td colspan="2">SUBTOTAL</td>
-            <td>$5,200.00</td>
+            <td colspan="5"></td>
+            <td colspan="2">{{__('Sub Total')}}</td>
+            <td>SEK {{number_format($sum_tot,2)}}</td>
           </tr>
           <tr>
-            <td colspan="2"></td>
-            <td colspan="2">TAX 25%</td>
-            <td>$1,300.00</td>
+            <td colspan="5"></td>
+            <td colspan="2">{{__('VAT')}}</td>
+            <td>SEK {{number_format(($sum_tot*12/100),2)}}</td>
           </tr>
           <tr>
-            <td colspan="2"></td>
-            <td colspan="2">GRAND TOTAL</td>
-            <td>$6,500.00</td>
+            <td colspan="5"></td>
+            <td colspan="2">{{__('Total')}}</td>
+            <td>SEK {{number_format(($sum_tot*12/100+$sum_tot),2)}}</td>
           </tr>
         </tfoot>
       </table>
-      <div id="thanks">Thank you!</div>
+    <div id="thanks">{{__('Thank you!')}}</div>
       <div id="notices">
         <div>NOTICE:</div>
-        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+      <div class="notice">{{$order[0]->description}}</div>
       </div>
     </main>
     <footer>

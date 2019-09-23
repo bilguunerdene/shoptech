@@ -94,7 +94,7 @@ class OrderController extends Controller
         'suborder' => $suborder
           ];
     //   print_r($data);exit;
-      $pdf = PDF::loadView('pdf', $data);  
+      $pdf = PDF::loadView('pdf2', $data);  
       return $pdf->download('order.pdf');
     }
 }
