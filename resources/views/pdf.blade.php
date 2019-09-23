@@ -72,7 +72,11 @@
                 @php($sum_tot+=$item->price*$item->quantity)
                 <tr>
                     <td>{{$num+1}}</td>
-                    <td><img height="50px" src="{{public_path('images/'.$item->imageurl)}}" alt="Product image"></td>
+                    <td>
+                    @if($item->imageurl != null)
+                    <img height="50px" src="{{public_path('images/'.$item->imageurl)}}" alt="Product image">
+                    @endif
+                    </td>
                     <td>{{$item->article_number}}</td>
                     <td>{{$item->name}}</td>
                     <td>{{$item->barcode}}</td>
