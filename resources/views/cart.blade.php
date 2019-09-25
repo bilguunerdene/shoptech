@@ -94,7 +94,7 @@
             </select>
         </div>
         <div class="uk-width-1-1">
-            <span>{{ __('Order date') }}:</span>
+            <span>{{ __('Due date') }}:</span>
         <input class="uk-input" type="date" name="orderdate" value="{{ date("Y-m-d") }}">
         </div>
         <div class="uk-width-1-1">

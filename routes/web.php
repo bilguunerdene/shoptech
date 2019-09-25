@@ -54,3 +54,5 @@ Route::get('lang/{locale}','LocalizationController@index');
 Route::get('downloadpdf/{id}','OrderController@downloadpdf')->name('downloadpdf');
 
 Route::resource("order","OrderController");
+
+Route::get('favourite','ProductController@favourite')->name('favourite');

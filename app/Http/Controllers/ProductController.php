@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Input;
 use App\Type;
 use App\Country;
 use App\Product;
-use Validator,Redirect,Response,File,Form,DB;
+use Validator,Redirect,Response,File,Form,DB,Auth;
 class ProductController extends Controller
 {
     public function __construct()
@@ -135,4 +135,14 @@ class ProductController extends Controller
         return redirect()->back()->with(['status' => 'Saved.']);
     }
 }
+    public function favourite(){
+        $userid = Auth::user()->id;
+        $product = DB::table('favourites')->leftjoin('products','products.id','favourites.productid')
+        ->select('products.*')->where('favourites.userid','=',$userid)->get();
+        // print_r($product);
+        // exit;
+        $country = [1];
+        $type = [];
+        return view('home',compact('product','country'));
+    }
 }

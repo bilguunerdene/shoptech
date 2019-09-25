@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="uk-container uk-container-expand">
+    @if (count($country) > 0 )
     <div class="filter">
     <form action="{{ route('filter') }}" method="GET">
             <div class="uk-margin" uk-grid>
@@ -27,6 +28,7 @@
                 </div>
     </form>
     </div>
+    @endif
     <div class="uk-text-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-scrollspy="cls: uk-animation-slide-bottom; target: .uk-card; delay: 300; repeat: false" uk-grid>
         
      @foreach($product as $item)

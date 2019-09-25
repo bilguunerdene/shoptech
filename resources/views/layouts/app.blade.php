@@ -54,6 +54,7 @@ foreach(Session::get('cart') as $item)
                         <ul class="uk-nav">
                                 <li><a href="{{ route('order.index') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: user"></span><span class="title">{{ __('Profile') }}</span></a></li>
                             <li><a href="{{ route('home') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: home"></span><span class="title">{{ __('Home') }}</span></a></li>
+                            <li><a href="{{ route('favourite') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: heart"></span><span class="title">{{ __('My Favourite') }}</span></a></li>
                             <li><a href="{{ route('cart') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: cart"></span><span class="title">{{ __('Cart') }}</span></a></li>
                             <li><a href="{{ route('settings') }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: cog"></span><span class="title">{{ __('Settings') }}</span></a></li>
                             <li><a href="lang/{{ app()->getLocale()=="en"?"se":"en" }}"><span class="uk-margin-top uk-margin-right" uk-icon="icon: world"></span><span class="title">{{ app()->getLocale()=="en"?"Sweden":"English" }}</span></a></li>
