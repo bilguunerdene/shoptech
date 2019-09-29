@@ -110,7 +110,7 @@ class CartController extends Controller
     {
         
             Session::forget('cart');
-            return redirect()->back()->with('success', 'Cleared!');
+            return redirect()->back()->with('status', 'Cleared shopping bag!');
         
     }
 }

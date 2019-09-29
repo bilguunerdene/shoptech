@@ -30,22 +30,27 @@ class HomeController extends Controller
     {
         $type = Type::all();
         $country = Country::all();
-        $product = Product::orderBy('name','asc')->paginate(12);
+        // $product = Product::orderBy('name','asc')->paginate(12);
+        $product = DB::table('products as p')->leftjoin('favourites as f','p.id','f.productid')
+        ->select('p.*','f.id as favid')
+        ->orderByRaw('p.name asc')->paginate(12);
         return view('home',compact('product','country','type'));
     }
     public function search(){
         $type = Type::all();
         $country = Country::all();
         $name = request('name');
-        $product = DB::table('products')
-        ->where('name', 'like', $name.'%')
+        $product = DB::table('products as p')->leftjoin('favourites as f','p.id','f.productid')
+        ->select('p.*','f.id as favid')
+        ->where('p.name', 'like', $name.'%')
+        ->orderByRaw('p.name asc')
         ->paginate(12);
         
         return view('home',compact('product','country','type'));
     }
     public function filter(Request $request){
         $type = Type::all();
-        $product = Product::where('type', 1);
+        $product = DB::table('products as p')->leftjoin('favourites as f','p.id','f.productid');
         if ($request->has('type')&&$request->type!='All') {
             $product->where('type', '=', $request->type);
         }
@@ -53,7 +58,8 @@ class HomeController extends Controller
             $product->where('countryId', '=', $request->countryId);
         }
         $country = Country::all();
-        $product = $product->paginate(12);
+        $product = $product->select('p.*','f.id as favid')
+        ->orderByRaw('p.name asc')->paginate(12);
         return view('home',compact('product','country','type'));
     }
     public function welcome(){

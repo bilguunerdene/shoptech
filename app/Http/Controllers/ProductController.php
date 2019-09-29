@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use App\Type;
 use App\Country;
 use App\Product;
+use App\Favourite;
 use Validator,Redirect,Response,File,Form,DB,Auth;
 class ProductController extends Controller
 {
@@ -135,14 +136,27 @@ class ProductController extends Controller
         return redirect()->back()->with(['status' => 'Saved.']);
     }
 }
+    public function addtofav(Request $request){
+        $favourite = DB::table('favourites')->where('favourites.productid',$request->id);
+        if($favourite->count()>0){
+            $favourite->delete();
+            return redirect()->back()->with('success', 'Removed from favourite items!');
+        }
+        $favourite = new Favourite();
+        $favourite->userid = Auth::user()->id;
+        $favourite->productid = $request->id;
+        $favourite->createddate = date('Y-m-d');
+        $favourite->save();
+        return redirect()->back()->with('success', 'Added to favourite items!');
+    }
     public function favourite(){
         $userid = Auth::user()->id;
         $product = DB::table('favourites')->leftjoin('products','products.id','favourites.productid')
-        ->select('products.*')->where('favourites.userid','=',$userid)->get();
+        ->select('products.*','favourites.id as favid')->where('favourites.userid','=',$userid)
+        ->orderByRaw('products.name asc')
+        ->paginate(12);
         // print_r($product);
         // exit;
-        $country = [1];
-        $type = [];
-        return view('home',compact('product','country'));
+        return view('home',compact('product'));
     }
 }

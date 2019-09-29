@@ -43,11 +43,13 @@ Route::post('login', 'Auth\LoginController@login');
 
 Route::post('update-cart', 'CartController@update');
 
+Route::post('addtofav', 'ProductController@addtofav');
+
 Route::post('minus', 'CartController@minus');
  
 Route::get('remove-from-cart/{id}', 'CartController@remove')->name('remove-from-cart');
 
-Route::delete('removeall-from-cart', 'CartController@removeAll');
+Route::get('removeall-from-cart', 'CartController@removeAll')->name('removeall-from-cart');
 
 Route::get('lang/{locale}','LocalizationController@index');
 

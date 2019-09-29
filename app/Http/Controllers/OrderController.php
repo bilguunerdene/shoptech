@@ -68,6 +68,8 @@ class OrderController extends Controller
         $order = DB::table('orders')->leftjoin('branch','branch.id','orders.branchid')
         ->leftjoin('users','users.id','orders.user')
         ->select('orders.*','users.name as username','branch.name as branchname')
+        ->where('orders.user',Auth::user()->id)
+        ->orderByRaw('createddate DESC')
         ->get();
         return view('order.list',compact('order'));
     }

@@ -6,7 +6,7 @@
                 @method('POST')
     <div class="row">
             
-    <div class="col-md-12 col-lg-8">
+    <div class="col-md-12 col-lg-8 uk-margin-bottom">
         <div class="uk-card uk-card-default uk-card-body">
         @if (session('status'))
                             <div class="alert alert-success" role="alert">
@@ -22,21 +22,25 @@
                             </ul>
                         </div>
                     @endif
-        <div class="heading">
-            <h3>{{ __('Shopping cart') }}</h3>
+        <div style="display:flex" class="heading">
+            <div><h3>{{ __('Shopping cart') }}</h3></div>
+            <div style="display: block;
+            flex: auto;
+            justify-content: end;
+            align-self: center;"><div class="removeproduct uk-text-right"><a href="{{route('removeall-from-cart')}}"><span uk-icon="trash"></span> {{ __('Remove All') }}</a></div></div>
         </div>
         @if(count($items)!=0)
         @foreach($items as $x => $item)
         <hr>
-        <div class="row uk-margin" uk-grid>
-            <div class="uk-margin uk-width-1-3">
-                <img style="width:150px;max-height:140px" src="{{asset('images').'/'.$item['photo']}}" alt="">
+        <div class="row uk-margin">
+            <div class="uk-margin">
+                <img style="max-width:200px;max-height:140px" src="{{asset('images').'/'.$item['photo']}}" alt="">
             </div>
-            <div class="info uk-width-1-3">
+            <div class="info">
             <div class="productid">{{ __('Product ID') }}: <a href="{{route('product.show',$item['id'])}}">{{$item['id']}}</a></div>
             <div class="productname">{{ __('Product Name') }}: {{$item['name']}}</div>
             </div>
-            <div class="pcontrol uk-width-1-3">
+            <div class="pcontrol" style="flex:auto">
             <div class="uk-text-right price">SEK {{number_format($item['price'])}}</div>
             <div style="justify-content:flex-end" class="pcontroller uk-margin uk-text-center uk-flex">
                 <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="minus"></span></div></div>
@@ -89,7 +93,7 @@
             <select name="branch" id="" class="uk-select">
                     <option value="">- Choose an one -</option>
                     @foreach($branch as $val)
-                    <option value="{{ $val->id }}">{{ $val->name }}</option>
+                    <option value="{{ $val->id }}" {{$val->id==Auth::user()->branchid?"checked":""}}>{{ $val->name }}</option>
                     @endforeach
             </select>
         </div>

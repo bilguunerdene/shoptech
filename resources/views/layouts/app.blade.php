@@ -19,6 +19,7 @@ foreach(Session::get('cart') as $item)
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/script.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.min.js') }}" defer></script>
     <link rel="stylesheet" href="{{ asset('css/uikit.min.css') }}">
     <script src="{{ asset('js/uikit.min.js') }}"></script>
     <script src="{{ asset('js/uikit-icons.min.js') }}"></script>
@@ -138,8 +139,8 @@ foreach(Session::get('cart') as $item)
             @yield('content')
         </main>
     </div>
-    <script type="text/javascript">
-function minusval(id,quantity){
+    <script>
+    function minusval(id,quantity){
     $.ajax({
         "url": '{{ url("minus") }}',
         "type":"POST",
@@ -163,6 +164,17 @@ function addval(id,quantity){
         }
     });
 }
-</script>
+function addtofav(productid){
+    $.ajax({
+        "url": '{{ url("addtofav") }}',
+        "type":"POST",
+        "data": { "_token": "{{ csrf_token() }}","id":productid},
+        "success":(html)=>{
+            $("#heart_"+productid).toggleClass("liked");
+        }
+    });
+}
+
+    </script>
 </body>
 </html>

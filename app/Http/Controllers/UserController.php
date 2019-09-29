@@ -8,13 +8,16 @@ use App\Permission;
 use App\Branch;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
-use Validator,Redirect,Response,File,Form,DB;
+use Validator,Redirect,Response,File,Form,DB,Auth;
 class UserController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
+        
     }
     public function index(){
+        if(Auth::user()->permissionId!=1)
+        return redirect()->back();
         // $this->list_models();
         $user = DB::table('users')->leftjoin('branch','branch.id','users.branchid')
         ->leftjoin('permission','permission.id','users.permissionId')
@@ -23,6 +26,8 @@ class UserController extends Controller
         return view('user.list',compact('user'));
     }
     public function create(){
+        if(Auth::user()->permissionId!=1)
+        return redirect()->back();
         $action = route('user.store');
         $method = "POST";
         $user = null;

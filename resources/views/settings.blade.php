@@ -43,6 +43,8 @@
                     </ul>
                 </div>
             </li>
+            @if(Auth::user())
+            @if(Auth::user()->permissionId==1)
             <li>
                 <a href="{{ route('user.index') }}">{{ __('User') }}</a>
                 <div class="uk-navbar-dropdown">
@@ -52,6 +54,8 @@
                     </ul>
                 </div>
             </li>
+            @endif
+            @endif
         </ul>
 
     </div>

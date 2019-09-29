@@ -1,6 +1,6 @@
 
 @extends('order.settings')
-
+@extends('layouts.script')
 @section('section')
                 @if (session('status'))
                             <div class="alert {{ session('status')==0?'alert-success':'alert-danger' }}" role="alert">

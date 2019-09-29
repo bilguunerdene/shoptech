@@ -3,32 +3,7 @@
 @section('content')
 
 <div class="home uk-container uk-container-expand">
-    @isset($country)
-    <div class="filter">
-    <form action="{{ route('filter') }}" method="GET">
-            <div class="uk-margin" uk-grid>
-                    <div class="uk-width-1-2">
-                        <label for="countryId">{{ __('Country') }}: </label>
-                            <select name="countryId" class="uk-select" onchange="this.form.submit()">
-                                    <option value="All">All</option>
-                                    @foreach($country as $c)
-                                <option value="{{ $c->id }}" {{$c->id==request('countryId')?'selected':''}}>{{ $c->name }}</option>
-                                    @endforeach
-                                </select>
-                    </div>
-                    <div class="uk-width-1-2">
-                        <label for="type">{{ __('Type') }}: </label>
-                            <select name="type" class="uk-select" onchange="this.form.submit()">
-                                    <option value="All">{{ __('All') }}</option>
-                                    @foreach($type as $c)
-                                <option value="{{ $c->id }}" {{$c->id==request('type')?'selected':''}}>{{ $c->name }}</option>
-                                    @endforeach
-                                </select>
-                    </div>
-                </div>
-    </form>
-    </div>
-    @endisset
+   
     <div class="uk-text-center uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-scrollspy="cls: uk-animation-slide-bottom; target: .uk-card; delay: 300; repeat: false" uk-grid>
         
      @foreach($product as $item)
@@ -47,12 +22,6 @@
                 <div class="uk-text-center">
                     <div>{{$item->name}}</div>
                     <div>{{$item->cnt}} per one package</div>
-                </div>
-                <div class="uk-text-center">
-                <button onclick="addtofav({{$item->id}})" id="heart_{{$item->id}}" class="button button-like {{$item->favid!=null?'liked':''}}">
-                        <i class="fa fa-heart"></i>
-                        <span>Like</span>
-                      </button>
                 </div>
                 <div class="pcontroller uk-margin uk-text-center uk-flex">
                     <div class="uk-margin-right"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item->id}},{{$item->cnt}})"><span uk-icon="minus"></span></div></div>

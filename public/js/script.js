@@ -1,0 +1,4 @@
+$(() => {
+    var tabledt = $('#table').DataTable();
+
+    } );
