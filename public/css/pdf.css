@@ -25,7 +25,6 @@ body {
   font-size: 14px; 
   font-family: SourceSansPro;
 }
-
 header {
   padding: 10px 0;
   margin-bottom: 20px;
@@ -94,7 +93,7 @@ table {
 
 table th,
 table td {
-  padding: 15px;
+  padding: 10px;
   background: #EEEEEE;
   text-align: center;
   border-bottom: 1px solid #FFFFFF;

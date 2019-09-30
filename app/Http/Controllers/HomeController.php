@@ -66,5 +66,18 @@ class HomeController extends Controller
         $country = Country::all();
         $type = Type::all();
         return view('welcome',compact('country','type'));
+    //     $id = 18;
+    //     $order = DB::table('orders')->leftjoin('branch','branch.id','orders.branchid')
+    //     ->leftjoin('users','users.id','orders.user')
+    //     ->select('orders.*','users.name as username','users.email as useremail','branch.name as branchname','branch.location','branch.coordinate','branch.imageurl as branchimage')->where('orders.id',$id)
+    //     ->get();
+        
+    //     $suborder = DB::table('suborders')->leftjoin('products','products.id','suborders.productid')
+    //     ->select('suborders.*','products.name','products.barcode','products.imageurl','products.article_number')->where('suborders.orderid',$id)->get();
+    //    $data = [
+    //     'order' => $order,
+    //     'suborder' => $suborder
+    //       ];
+    //       return view('pdf2',compact('order','suborder'));
     }
 }

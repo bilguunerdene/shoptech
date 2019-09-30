@@ -45,7 +45,7 @@
                     <span class="uk-text-bold uk-text-emphasis">SEK {{number_format($item->price)}}</span>
                 </div>
                 <div class="uk-text-center">
-                    <div>{{$item->name}}</div>
+                    <div>{{$item->name!=null?$item->name:"Unknown name of product"}}</div>
                     <div>{{$item->cnt}} per one package</div>
                 </div>
                 <div class="uk-text-center">

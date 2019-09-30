@@ -36,7 +36,7 @@
         
         </div>
       </div>
-      <table width="500px" border="0" cellspacing="0" cellpadding="0">
+      <table style="width:100%" border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
             <th class="no">#</th>

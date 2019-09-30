@@ -65,7 +65,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
             'type' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     );
     $validator = Validator::make ( Input::all (), $rules );
     if ($validator->fails ())
@@ -105,7 +105,7 @@ class ProductController extends Controller
             'quantity' => 'required|numeric',
             'type' => 'required',
             'country' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     );
     $validator = Validator::make ( Input::all (), $rules );
     if ($validator->fails ())

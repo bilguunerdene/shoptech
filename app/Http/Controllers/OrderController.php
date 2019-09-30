@@ -41,6 +41,8 @@ class OrderController extends Controller
             $suborder->createddate = date('Y-m-d');
             $suborder->save();
         }
+        $mailfrom = env('MAIL_USERNAME','admin@shop.eanplock.com');
+        $mailto = env('MAIL_TO','bilguunerdeneb@gmail.com');
         $order = Order::find($orderid);
         $order->total = ($total*12/100)+$total;
         $order->save();
@@ -49,10 +51,10 @@ class OrderController extends Controller
         $data = [];
         $data['branch'] = $branch->name;
         $data['recdate'] = request('orderdate');
-        Mail::send('mail', ['data' => $data], function ($m) use ($user,$orderid) {
-            $m->from('bilguunerdeneb@gmail.com', 'Order - '.$orderid)
+        Mail::send('mail', ['data' => $data], function ($m) use ($user,$orderid,$mailfrom,$mailto) {
+            $m->from($mailfrom, 'Order - '.$orderid)
             ->attachData($this->downloadpdf($orderid), "order_".$orderid.".pdf")
-            ->to('bilguunerdeneb@gmail.com', $user->name)
+            ->to(explode(';',$mailto), $user->name)
             ->subject('Order - '.$orderid);
         });
         Session::forget('cart');
@@ -66,9 +68,14 @@ class OrderController extends Controller
         // exit;
         
         $order = DB::table('orders')->leftjoin('branch','branch.id','orders.branchid')
-        ->leftjoin('users','users.id','orders.user')
-        ->select('orders.*','users.name as username','branch.name as branchname')
-        ->where('orders.user',Auth::user()->id)
+        ->leftjoin('users','users.id','orders.user');
+
+        
+        if(Auth::user()->permissionId!=1){
+            $order->where('orders.user','=',Auth::user()->id);
+        }
+
+        $order = $order->select('orders.*','users.name as username','branch.name as branchname')
         ->orderByRaw('createddate DESC')
         ->get();
         return view('order.list',compact('order'));
