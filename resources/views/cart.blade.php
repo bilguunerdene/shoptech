@@ -29,42 +29,114 @@
             justify-content: end;
             align-self: center;"><div class="removeproduct uk-text-right"><a href="{{route('removeall-from-cart')}}"><span uk-icon="trash"></span> {{ __('Remove All') }}</a></div></div>
         </div>
-        @if(count($items)!=0)
-        @foreach($items as $x => $item)
-        <hr>
-        <div class="row uk-margin">
-            <div class="uk-margin">
-                <img style="max-width:200px;max-height:140px" src="{{asset('images').'/'.$item['photo']}}" alt="">
-            </div>
-            <div class="info">
-            <div class="productid">{{ __('Product ID') }}: <a href="{{route('product.show',$item['id'])}}">{{$item['id']}}</a></div>
-            <div class="productname">{{ __('Product Name') }}: {{$item['name']}}</div>
-            </div>
-            <div class="pcontrol" style="flex:auto">
-            <div class="uk-text-right price">SEK {{number_format($item['price'])}}</div>
-            <div style="justify-content:flex-end" class="pcontroller uk-margin uk-text-center uk-flex">
-                <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="minus"></span></div></div>
-                <div class="" style="width:140px"><input id="inputbtn{{$item['id']}}" type="text" class="uk-input inputbtn" value="{{$item['quantity']}}"></div>
-                <div class="uk-margin-left"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="plus"></span></div></div>
-            </div>
-        <div class="removeproduct uk-text-right"><a href="{{route('remove-from-cart',$item['id'])}}"><span uk-icon="trash"></span> {{ __('Remove') }}</a></div>
-            </div>
+        <div>
+            <ul class="uk-subnav uk-subnav-pill" uk-switcher>
+                <li><a href="#">Main</a></li>
+                <li><a href="#">Confirmation</a></li>
+            </ul>
+            <ul class="uk-switcher uk-margin">
+                <li>
+                        @if(count($items)!=0)
+                        @foreach($items as $x => $item)
+                        <hr>
+                        <div class="row uk-margin">
+                            <div class="uk-margin">
+                                <img style="max-width:200px;max-height:140px" src="{{asset('images').'/'.$item['photo']}}" alt="">
+                            </div>
+                            <div class="info">
+                            <div class="productid">{{ __('Product ID') }}: <a href="{{route('product.show',$item['id'])}}">{{$item['id']}}</a></div>
+                            <div class="productname">{{ __('Product Name') }}: {{$item['name']}}</div>
+                            </div>
+                            <div class="pcontrol" style="flex:auto">
+                            <div class="uk-text-right price">SEK {{number_format($item['price'])}}</div>
+                            <div style="justify-content:flex-end" class="pcontroller uk-margin uk-text-center uk-flex">
+                                <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="minus"></span></div></div>
+                                <div class="" style="width:140px"><input id="inputbtn{{$item['id']}}" type="text" class="uk-input inputbtn" value="{{$item['quantity']}}"></div>
+                                <div class="uk-margin-left"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="plus"></span></div></div>
+                            </div>
+                        <div class="removeproduct uk-text-right"><a href="{{route('remove-from-cart',$item['id'])}}"><span uk-icon="trash"></span> {{ __('Remove') }}</a></div>
+                            </div>
+                        </div>
+                        @endforeach
+                        <hr>
+                        <div class="uk-margin">
+                            <div class="uk-text-right">
+                            
+                            <button class="uk-button uk-button-primary" uk-switcher-item="next">{{__('Confirm')}}</button>
+                            
+                            
+                            </div>
+                        </div>
+                        @else
+                        <hr>
+                        <div class="uk-margin">
+                            <span>{{ __('You have no items in your shopping cart') }}</span>
+                        </div>
+                        @endif
+                </li>
+                <li>
+                        <div class="uk-grid">
+                                <div class="uk-width-1-1">
+                                    <span>{{ __('Branch') }}:</span>
+                                    <select name="branch" id="" class="uk-select">
+                                            <option value="">- Choose an one -</option>
+                                            @foreach($branch as $val)
+                                            <option value="{{ $val->id }}" {{$val->id==Auth::user()->branchid?"selected":""}}>{{ $val->name }}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                                <div class="uk-width-1-1">
+                                    <span>{{ __('Due date') }}:</span>
+                                <input class="uk-input" type="date" name="orderdate" value="{{ date("Y-m-d") }}">
+                                </div>
+                                <div class="uk-width-1-1">
+                                    <span>{{ __('Description') }}:</span>
+                                    <textarea class="uk-textarea" rows="5" placeholder="" name="description"></textarea>
+                                </div>
+                                
+                            </div>
+                        @if(count($items)!=0)
+                        @foreach($items as $x => $item)
+                        <hr>
+                        <div class="row uk-margin">
+                            <div class="uk-margin">
+                                <img style="max-width:200px;max-height:140px" src="{{asset('images').'/'.$item['photo']}}" alt="">
+                            </div>
+                            <div class="info">
+                            <div class="productid">{{ __('Product ID') }}: <a href="{{route('product.show',$item['id'])}}">{{$item['id']}}</a></div>
+                            <div class="productname">{{ __('Product Name') }}: {{$item['name']}}</div>
+                            </div>
+                            <div class="pcontrol" style="flex:auto">
+                            <div class="uk-text-right price">SEK {{number_format($item['price'])}}</div>
+                            <div style="justify-content:flex-end" class="pcontroller uk-margin uk-text-center uk-flex">
+                                <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="minus"></span></div></div>
+                                <div class="" style="width:140px"><input id="inputbtn{{$item['id']}}" type="text" class="uk-input inputbtn" value="{{$item['quantity']}}"></div>
+                                <div class="uk-margin-left"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="plus"></span></div></div>
+                            </div>
+                        <div class="removeproduct uk-text-right"><a href="{{route('remove-from-cart',$item['id'])}}"><span uk-icon="trash"></span> {{ __('Remove') }}</a></div>
+                            </div>
+                        </div>
+                        @endforeach
+                        <hr>
+                        <div class="uk-margin">
+                            <div class="uk-text-right">
+                            
+                            <button type="submit" class="uk-button uk-button-primary">{{__('Order')}}</button>
+                            
+                            
+                            </div>
+                        </div>
+                        @else
+                        <hr>
+                        <div class="uk-margin">
+                            <span>{{ __('You have no items in your shopping cart') }}</span>
+                        </div>
+                        @endif
+                </li>
+            </ul>
         </div>
-        @endforeach
-        <hr>
-        <div class="uk-margin">
-            <div class="uk-text-right">
-            
-            <button type="submit" class="uk-button uk-button-primary">{{__('Order')}}</button>
-            
-            </div>
-        </div>
-        @else
-        <hr>
-        <div class="uk-margin">
-            <span>{{ __('You have no items in your shopping cart') }}</span>
-        </div>
-        @endif
+        
+        
     </div></div>
     <div class="col-md-12 col-lg-4">
         
@@ -87,30 +159,7 @@
             <div class="uk-width-1-2 uk-text-left"><span class="">{{ __('Total') }}</span></div>
     <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($total+$vat)}}</span></div>
         </div>
-    <div class="uk-grid">
-        <div class="uk-width-1-1">
-            <span>{{ __('Branch') }}:</span>
-            <select name="branch" id="" class="uk-select">
-                    <option value="">- Choose an one -</option>
-                    @foreach($branch as $val)
-                    <option value="{{ $val->id }}" {{$val->id==Auth::user()->branchid?"checked":""}}>{{ $val->name }}</option>
-                    @endforeach
-            </select>
-        </div>
-        <div class="uk-width-1-1">
-            <span>{{ __('Due date') }}:</span>
-        <input class="uk-input" type="date" name="orderdate" value="{{ date("Y-m-d") }}">
-        </div>
-        <div class="uk-width-1-1">
-            <span>{{ __('Description') }}:</span>
-            <textarea class="uk-textarea" rows="5" placeholder="" name="description"></textarea>
-        </div>
-        <div class="uk-width-1-1 uk-margin-top">
-            
-            <button type="submit" class="uk-button uk-button-primary">{{__('Order')}}</button>
-            
-        </div>
-    </div>
+    
 </div>
 
     </div>
