@@ -48,11 +48,11 @@
                             <div class="productname">{{ __('Product Name') }}: {{$item['name']}}</div>
                             </div>
                             <div class="pcontrol" style="flex:auto">
-                            <div class="uk-text-right price">SEK {{number_format($item['price'])}}</div>
+                            <div class="uk-text-right price">SEK {{number_format($item['inprice'])}}</div>
                             <div style="justify-content:flex-end" class="pcontroller uk-margin uk-text-center uk-flex">
-                                <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="minus"></span></div></div>
+                                <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['cnt']}},{{$item['inprice']}})"><span uk-icon="minus"></span></div></div>
                                 <div class="" style="width:140px"><input id="inputbtn{{$item['id']}}" type="text" class="uk-input inputbtn" value="{{$item['quantity']}}"></div>
-                                <div class="uk-margin-left"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="plus"></span></div></div>
+                                <div class="uk-margin-left"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item['id']}},{{$item['cnt']}},{{$item['inprice']}})"><span uk-icon="plus"></span></div></div>
                             </div>
                         <div class="removeproduct uk-text-right"><a href="{{route('remove-from-cart',$item['id'])}}"><span uk-icon="trash"></span> {{ __('Remove') }}</a></div>
                             </div>
@@ -98,7 +98,7 @@
                         @if(count($items)!=0)
                         @foreach($items as $x => $item)
                         <hr>
-                        <div class="row uk-margin">
+                        <div class="row uk-margin row_{{$item['id']}}">
                             <div class="uk-margin">
                                 <img style="max-width:200px;max-height:140px" src="{{asset('images').'/'.$item['photo']}}" alt="">
                             </div>
@@ -107,13 +107,11 @@
                             <div class="productname">{{ __('Product Name') }}: {{$item['name']}}</div>
                             </div>
                             <div class="pcontrol" style="flex:auto">
-                            <div class="uk-text-right price">SEK {{number_format($item['price'])}}</div>
-                            <div style="justify-content:flex-end" class="pcontroller uk-margin uk-text-center uk-flex">
-                                <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="minus"></span></div></div>
-                                <div class="" style="width:140px"><input id="inputbtn{{$item['id']}}" type="text" class="uk-input inputbtn" value="{{$item['quantity']}}"></div>
-                                <div class="uk-margin-left"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item['id']}},{{$item['cnt']}})"><span uk-icon="plus"></span></div></div>
+                            <div class="uk-text-right price">SEK <span data-value="{{$item['inprice']*$item['quantity']}}" class="itemtotal">{{number_format($item['inprice']*$item['quantity'])}}</span></div>
+                            <div style="justify-content:flex-end" class="uk-margin uk-text-center uk-flex">
+                            SEK {{number_format($item['inprice'])." X "}} <span data-value="{{$item['quantity']}}" class="quantity">{{number_format($item['quantity'])}}</span>
                             </div>
-                        <div class="removeproduct uk-text-right"><a href="{{route('remove-from-cart',$item['id'])}}"><span uk-icon="trash"></span> {{ __('Remove') }}</a></div>
+                        
                             </div>
                         </div>
                         @endforeach
@@ -147,17 +145,17 @@
     <hr>
     <div class="uk-grid">
         <div class="uk-width-1-2 uk-text-left"><span class="">{{ __('Sub Total') }}</span></div>
-    <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($total)}}</span></div>
+    <div class="uk-width-1-2 uk-text-right"><span data-value="{{($total)}}" class="subtotal">{{number_format($total)}}</span></div>
     </div>
     <hr>
     <div class="uk-grid">
             <div class="uk-width-1-2 uk-text-left"><span class="">{{ __('VAT') }}</span></div>
-    <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($vat=$total*12/100)}}</span></div>
+    <div class="uk-width-1-2 uk-text-right"><span data-value="{{($total*12/100)}}" class="vat">{{number_format($vat=$total*12/100)}}</span></div>
         </div>
         <hr>
     <div class="uk-grid">
             <div class="uk-width-1-2 uk-text-left"><span class="">{{ __('Total') }}</span></div>
-    <div class="uk-width-1-2 uk-text-right"><span class="">{{number_format($total+$vat)}}</span></div>
+    <div class="uk-width-1-2 uk-text-right"><span data-value="{{($total+$vat)}}" class="grandtotal">{{number_format($total+$vat)}}</span></div>
         </div>
     
 </div>

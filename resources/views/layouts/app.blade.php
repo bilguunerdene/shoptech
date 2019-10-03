@@ -140,7 +140,7 @@ foreach(Session::get('cart') as $item)
         </main>
     </div>
     <script>
-    function minusval(id,quantity){
+    function minusval(id,quantity,price){
     $.ajax({
         "url": '{{ url("minus") }}',
         "type":"POST",
@@ -148,11 +148,23 @@ foreach(Session::get('cart') as $item)
         "success":(html)=>{
             $(".cartbadge").html(parseInt($(".cartbadge").html())-quantity);
             $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())-quantity);
+            var subtotal = $(".subtotal").attr('data-value');
+            
+            if(subtotal>0){
+                var subtot = parseFloat(subtotal)-parseFloat(quantity*price);
+                var vat = subtot*12/100;
+                $(".subtotal").html(toformat(subtot));
+                $(".subtotal").attr('data-value',subtot);
+                $(".vat").html(toformat(vat));
+                $(".vat").attr('data-value',vat);
+                $(".grandtotal").html(toformat(vat+subtot));
+                $(".grandtotal").attr('data-value',vat+subtot);
+            }
         }
     });
     
 }
-function addval(id,quantity){
+function addval(id,quantity,price){
     quantity = parseInt(quantity);
     $.ajax({
         "url": '{{ url("update-cart") }}',
@@ -161,8 +173,30 @@ function addval(id,quantity){
         "success":(html)=>{
             $(".cartbadge").html(parseInt($(".cartbadge").html())+quantity);
             $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())+quantity);
+            
+            var subtotal = $(".subtotal").attr('data-value');
+            var subtot = parseFloat(subtotal)+parseFloat(quantity*price);
+            var vat = subtot*12/100;
+            $(".subtotal").html(toformat(subtot));
+            $(".subtotal").attr('data-value',subtot);
+            $(".vat").html(toformat(vat));
+            $(".vat").attr('data-value',vat);
+            $(".grandtotal").html(toformat(vat+subtot));
+            $(".grandtotal").attr('data-value',vat+subtot);
+
+            var itemtotal = $(".row_"+id+" .itemtotal").attr('data-value');
+            var newtotal = toformat(parseFloat(itemtotal)+parseFloat(quantity*price));
+            $(".row_"+id+" .itemtotal").html(newtotal);
+            $(".row_"+id+" .itemtotal").attr('data-value',newtotal)
+            var itemq = $(".row_"+id+" .quantity").attr('data-value');
+            var newq = toformat(parseInt(itemq)+parseInt(quantity));
+            $(".row_"+id+" .quantity").html(newq);
+            $(".row_"+id+" .quantity").attr('data-value',newq)
         }
     });
+}
+function toformat(number){
+    return new Intl.NumberFormat().format(number);
 }
 function addtofav(productid){
     $.ajax({
@@ -171,6 +205,7 @@ function addtofav(productid){
         "data": { "_token": "{{ csrf_token() }}","id":productid},
         "success":(html)=>{
             $("#heart_"+productid).toggleClass("liked");
+            
         }
     });
 }
