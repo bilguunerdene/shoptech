@@ -159,6 +159,15 @@ foreach(Session::get('cart') as $item)
                 $(".vat").attr('data-value',vat);
                 $(".grandtotal").html(toformat(vat+subtot));
                 $(".grandtotal").attr('data-value',vat+subtot);
+
+                var itemtotal = $(".row_"+id+" .itemtotal").attr('data-value');
+                var newtotal = toformat(parseFloat(itemtotal)-parseFloat(quantity*price));
+                $(".row_"+id+" .itemtotal").html(newtotal);
+                $(".row_"+id+" .itemtotal").attr('data-value',newtotal)
+                var itemq = $(".row_"+id+" .quantity").attr('data-value');
+                var newq = toformat(parseInt(itemq)-parseInt(quantity));
+                $(".row_"+id+" .quantity").html(newq);
+                $(".row_"+id+" .quantity").attr('data-value',newq)
             }
         }
     });
@@ -196,7 +205,7 @@ function addval(id,quantity,price){
     });
 }
 function toformat(number){
-    return new Intl.NumberFormat().format(number);
+    return new Intl.NumberFormat('en-US',{ maximumFractionDigits: 2 }).format(number);
 }
 function addtofav(productid){
     $.ajax({

@@ -48,7 +48,7 @@
                             <div class="productname">{{ __('Product Name') }}: {{$item['name']}}</div>
                             </div>
                             <div class="pcontrol" style="flex:auto">
-                            <div class="uk-text-right price">SEK {{number_format($item['inprice'])}}</div>
+                            <div class="uk-text-right price">SEK {{number_format($item['inprice'],2)}}</div>
                             <div style="justify-content:flex-end" class="pcontroller uk-margin uk-text-center uk-flex">
                                 <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['cnt']}},{{$item['inprice']}})"><span uk-icon="minus"></span></div></div>
                                 <div class="" style="width:140px"><input id="inputbtn{{$item['id']}}" type="text" class="uk-input inputbtn" value="{{$item['quantity']}}"></div>
@@ -107,9 +107,9 @@
                             <div class="productname">{{ __('Product Name') }}: {{$item['name']}}</div>
                             </div>
                             <div class="pcontrol" style="flex:auto">
-                            <div class="uk-text-right price">SEK <span data-value="{{$item['inprice']*$item['quantity']}}" class="itemtotal">{{number_format($item['inprice']*$item['quantity'])}}</span></div>
+                            <div class="uk-text-right price">SEK <span data-value="{{$item['inprice']*$item['quantity']}}" class="itemtotal">{{number_format($item['inprice']*$item['quantity'],2)}}</span></div>
                             <div style="justify-content:flex-end" class="uk-margin uk-text-center uk-flex">
-                            SEK {{number_format($item['inprice'])." X "}} <span data-value="{{$item['quantity']}}" class="quantity">{{number_format($item['quantity'])}}</span>
+                            SEK {{number_format($item['inprice'],2)." X "}} <span data-value="{{$item['quantity']}}" class="quantity">{{number_format($item['quantity'])}}</span>
                             </div>
                         
                             </div>
