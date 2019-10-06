@@ -151,8 +151,8 @@ class ProductController extends Controller
     }
     public function favourite(){
         $userid = Auth::user()->id;
-        $product = DB::table('favourites')->leftjoin('products','products.id','favourites.productid')
-        ->select('products.*','favourites.id as favid')->where('favourites.userid','=',$userid)
+        $product = DB::table('favourites')->leftjoin('products','products.id','favourites.productid','favourites.userid',Auth::user()->id)
+        ->select('products.*','favourites.id as favid','favourites.userid as fuserid')->where('favourites.userid','=',$userid)
         ->orderByRaw('products.name asc')
         ->paginate(12);
         // print_r($product);

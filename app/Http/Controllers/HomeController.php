@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
-use DB;
+use DB,Auth;
 use Session;
 use App\Type;
 use App\Country;
@@ -31,8 +31,8 @@ class HomeController extends Controller
         $type = Type::all();
         $country = Country::all();
         // $product = Product::orderBy('name','asc')->paginate(12);
-        $product = DB::table('products as p')->leftjoin('favourites as f','p.id','f.productid')
-        ->select('p.*','f.id as favid')
+        $product = DB::table('products as p')->leftjoin('favourites as f','p.id','f.productid','f.userid',Auth::user()->id)
+        ->select('p.*','f.id as favid','f.userid as fuserid')
         ->orderByRaw('p.name asc')->paginate(12);
         return view('home',compact('product','country','type'));
     }
@@ -41,7 +41,7 @@ class HomeController extends Controller
         $country = Country::all();
         $name = request('name');
         $product = DB::table('products as p')->leftjoin('favourites as f','p.id','f.productid')
-        ->select('p.*','f.id as favid')
+        ->select('p.*','f.id as favid','f.userid as fuserid')
         ->where('p.name', 'like', $name.'%')
         ->orderByRaw('p.name asc')
         ->paginate(12);
@@ -58,7 +58,7 @@ class HomeController extends Controller
             $product->where('countryId', '=', $request->countryId);
         }
         $country = Country::all();
-        $product = $product->select('p.*','f.id as favid')
+        $product = $product->select('p.*','f.id as favid','f.userid as fuserid')
         ->orderByRaw('p.name asc')->paginate(12);
         return view('home',compact('product','country','type'));
     }

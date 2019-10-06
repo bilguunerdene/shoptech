@@ -49,7 +49,7 @@
                     <div>{{$item->cnt}} per one package</div>
                 </div>
                 <div class="uk-text-center">
-                <button onclick="addtofav({{$item->id}})" id="heart_{{$item->id}}" class="button button-like {{$item->favid!=null?'liked':''}}">
+                <button onclick="addtofav({{$item->id}})" id="heart_{{$item->id}}" class="button button-like {{$item->fuserid==Auth::user()->id?'liked':''}}">
                         <i class="fa fa-heart"></i>
                         <span>Like</span>
                       </button>
