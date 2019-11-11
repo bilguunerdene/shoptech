@@ -58,6 +58,12 @@ class OrderController extends Controller
             ->subject('Order - '.$orderid);
         });
         Session::forget('cart');
+        $userid = env('API_USERID');
+        $userkey = env('API_USERKEY');
+        $sbmid = env('API_SBMID');
+        $intkey = env('API_INTKEY');
+        $custid = env('API_CUSTID');
+        $key = md5($intkey.(md5($userkey.$sbmid.$custid)));
         return redirect()->back()->with(['status' => 'Successfully ordered.']);
     }
     }
