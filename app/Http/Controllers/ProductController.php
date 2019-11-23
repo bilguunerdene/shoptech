@@ -64,8 +64,7 @@ class ProductController extends Controller
             'barcode' => 'required',
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
-            'type' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'type' => 'required'
     );
     $validator = Validator::make ( Input::all (), $rules );
     if ($validator->fails ())

@@ -52,8 +52,10 @@ class OrderController extends Controller
             array_push($priceexclvat,$item['inprice']);
             array_push($vatpercent,$mainvat);
         }
-        $resp = submitOrder($articleno,$articlename,$priceexclvat,$noofitems,$vatpercent);
-        print_r($resp);
+        $resp = $this->submitOrder($articleno,$articlename,$priceexclvat,$noofitems,$vatpercent);
+        if($resp['result']!=1){
+            return redirect()->back()->withErrors(['status' => 'Failed to send order to specter system.']);
+        }
         $mailfrom = env('MAIL_USERNAME','admin@shop.eanplock.com');
         $mailto = env('MAIL_TO','bilguunerdeneb@gmail.com');
         $order = Order::find($orderid);
@@ -64,47 +66,57 @@ class OrderController extends Controller
         $data = [];
         $data['branch'] = $branch->name;
         $data['recdate'] = request('orderdate');
-        Mail::send('mail', ['data' => $data], function ($m) use ($user,$orderid,$mailfrom,$mailto) {
-            $m->from($mailfrom, 'Order - '.$orderid)
-            ->attachData($this->downloadpdf($orderid), "order_".$orderid.".pdf")
-            ->to(explode(';',$mailto), $user->name)
-            ->subject('Order - '.$orderid);
-        });
+        // Mail::send('mail', ['data' => $data], function ($m) use ($user,$orderid,$mailfrom,$mailto) {
+        //     $m->from($mailfrom, 'Order - '.$orderid)
+        //     ->attachData($this->downloadpdf($orderid), "order_".$orderid.".pdf")
+        //     ->to(explode(';',$mailto), $user->name)
+        //     ->subject('Order - '.$orderid);
+        // });
         Session::forget('cart');
         
         return redirect()->back()->with(['status' => 'Successfully ordered.']);
     }
     }
     public function submitOrder($articleno,$articlename,$priceexvat,$noofitems,$vatpercent){
-        $userid = env('API_USERID');
-        $userkey = env('API_USERKEY');
-        $sbmid = env('API_SBMID');
-        $intkey = env('API_INTKEY');
-        $custid = env('API_CUSTID');
-        $url = env('API_URL');
+        $userid = env('API_USERID','278');
+        $userkey = env('API_USERKEY','3499d8a4bbff6bc7c9a748570050ea64');
+        $sbmid = env('API_SBMID','2521');
+        $intkey = env('API_INTKEY','0b7bddee-6d04-4459-acf1-8427a809ef07');
+        $custid = env('API_CUSTID','109');
+        $url = env('API_URL','https://api.specter.se/');
         $key = md5($intkey.(md5($userkey.$sbmid.$custid)));
         $fullurl = $url.'/putInfo.asp?action=newOrderSubmit&sbmId='.$sbmid.'&useXml=2&apiUserId='.$userid.'&key='.$key.'&customerId='.$custid;
         foreach($articleno as $key => $per){
-            $fullurl .= 'articleNo_'.($key+1).'='.$per;
+            $fullurl .= '&articleNo_'.($key+1).'='.$per;
         }
         foreach($articlename as $key => $per){
-            $fullurl .= 'articleName_'.($key+1).'='.$per;
+            $fullurl .= '&articleName_'.($key+1).'='.$per;
         }
         foreach($priceexvat as $key => $per){
-            $fullurl .= 'priceExclVAT_'.($key+1).'='.$per;
+            $fullurl .= '&priceExclVAT_'.($key+1).'='.$per;
         }
         foreach($noofitems as $key => $per){
-            $fullurl .= 'noOfItems_'.($key+1).'='.$per;
+            $fullurl .= '&noOfItems_'.($key+1).'='.$per;
         }
         foreach($vatpercent as $key => $per){
-            $fullurl .= 'vatPercent_'.($key+1).'='.$per;
+            $fullurl .= '&vatPercent_'.($key+1).'='.$per;
         }
-        return $fullurl;
-        $curl = curl_init();
+        
+        
+        $curl = curl_init();    
         curl_setopt($curl, CURLOPT_URL, $fullurl);
+        curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $data = curl_exec($curl);
+        print_r($fullurl);
+        exit;
         curl_close($curl);
+        
+        $con = new \SimpleXMLElement($data);
+        
+        
+        return (array)$con->APIresponse;
+        
     }
     public function list(){
         // $asd = $this->downloadpdf(1);
