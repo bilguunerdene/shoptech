@@ -31,6 +31,12 @@ class OrderController extends Controller
               'status' => 1 ]
         );
         $total = 0;
+        $articleno = [];
+        $articlename = [];
+        $noofitems = [];
+        $priceexclvat = [];
+        $vatpercent = [];
+        $mainvat = env('MAIN_VAT','20');
         foreach(Session::get('cart') as $id => $item){
             $total += $item['quantity']*$item['inprice'];
             $suborder = new Suborder();
@@ -40,7 +46,14 @@ class OrderController extends Controller
             $suborder->price = $item['inprice'];
             $suborder->createddate = date('Y-m-d');
             $suborder->save();
+            array_push($articleno,$item['id']);
+            array_push($articlename,$item['name']);
+            array_push($noofitems,$item['quantity']);
+            array_push($priceexclvat,$item['inprice']);
+            array_push($vatpercent,$mainvat);
         }
+        $resp = submitOrder($articleno,$articlename,$priceexclvat,$noofitems,$vatpercent);
+        print_r($resp);
         $mailfrom = env('MAIL_USERNAME','admin@shop.eanplock.com');
         $mailto = env('MAIL_TO','bilguunerdeneb@gmail.com');
         $order = Order::find($orderid);
@@ -58,14 +71,40 @@ class OrderController extends Controller
             ->subject('Order - '.$orderid);
         });
         Session::forget('cart');
+        
+        return redirect()->back()->with(['status' => 'Successfully ordered.']);
+    }
+    }
+    public function submitOrder($articleno,$articlename,$priceexvat,$noofitems,$vatpercent){
         $userid = env('API_USERID');
         $userkey = env('API_USERKEY');
         $sbmid = env('API_SBMID');
         $intkey = env('API_INTKEY');
         $custid = env('API_CUSTID');
+        $url = env('API_URL');
         $key = md5($intkey.(md5($userkey.$sbmid.$custid)));
-        return redirect()->back()->with(['status' => 'Successfully ordered.']);
-    }
+        $fullurl = $url.'/putInfo.asp?action=newOrderSubmit&sbmId='.$sbmid.'&useXml=2&apiUserId='.$userid.'&key='.$key.'&customerId='.$custid;
+        foreach($articleno as $key => $per){
+            $fullurl .= 'articleNo_'.($key+1).'='.$per;
+        }
+        foreach($articlename as $key => $per){
+            $fullurl .= 'articleName_'.($key+1).'='.$per;
+        }
+        foreach($priceexvat as $key => $per){
+            $fullurl .= 'priceExclVAT_'.($key+1).'='.$per;
+        }
+        foreach($noofitems as $key => $per){
+            $fullurl .= 'noOfItems_'.($key+1).'='.$per;
+        }
+        foreach($vatpercent as $key => $per){
+            $fullurl .= 'vatPercent_'.($key+1).'='.$per;
+        }
+        return $fullurl;
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $fullurl);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $data = curl_exec($curl);
+        curl_close($curl);
     }
     public function list(){
         // $asd = $this->downloadpdf(1);
