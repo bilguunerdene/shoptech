@@ -87,29 +87,26 @@ class OrderController extends Controller
         $key = md5($intkey.(md5($userkey.$sbmid.$custid)));
         $fullurl = $url.'/putInfo.asp?action=newOrderSubmit&sbmId='.$sbmid.'&useXml=2&apiUserId='.$userid.'&key='.$key.'&customerId='.$custid;
         foreach($articleno as $key => $per){
-            $fullurl .= '&articleNo_'.($key+1).'='.$per;
+            $fullurl .= '&articleNo_'.urlencode($key+1).'='.urlencode($per);
         }
         foreach($articlename as $key => $per){
-            $fullurl .= '&articleName_'.($key+1).'='.$per;
+            $fullurl .= '&articleName_'.urlencode($key+1).'='.urlencode($per);
         }
         foreach($priceexvat as $key => $per){
-            $fullurl .= '&priceExclVAT_'.($key+1).'='.$per;
+            $fullurl .= '&priceExclVAT_'.urlencode($key+1).'='.urlencode($per);
         }
         foreach($noofitems as $key => $per){
-            $fullurl .= '&noOfItems_'.($key+1).'='.$per;
+            $fullurl .= '&noOfItems_'.urlencode($key+1).'='.urlencode($per);
         }
         foreach($vatpercent as $key => $per){
-            $fullurl .= '&vatPercent_'.($key+1).'='.$per;
+            $fullurl .= '&vatPercent_'.urlencode($key+1).'='.urlencode($per);
         }
         
         
         $curl = curl_init();    
         curl_setopt($curl, CURLOPT_URL, $fullurl);
-        curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $data = curl_exec($curl);
-        print_r($fullurl);
-        exit;
         curl_close($curl);
         
         $con = new \SimpleXMLElement($data);
