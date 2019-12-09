@@ -31,6 +31,12 @@ class OrderController extends Controller
               'status' => 1 ]
         );
         $total = 0;
+        $articleno = [];
+        $articlename = [];
+        $noofitems = [];
+        $priceexclvat = [];
+        $vatpercent = [];
+        $mainvat = env('MAIN_VAT','20');
         foreach(Session::get('cart') as $id => $item){
             $total += $item['quantity']*$item['inprice'];
             $suborder = new Suborder();
@@ -40,6 +46,15 @@ class OrderController extends Controller
             $suborder->price = $item['inprice'];
             $suborder->createddate = date('Y-m-d');
             $suborder->save();
+            array_push($articleno,$item['id']);
+            array_push($articlename,$item['name']);
+            array_push($noofitems,$item['quantity']);
+            array_push($priceexclvat,$item['inprice']);
+            array_push($vatpercent,$mainvat);
+        }
+        $resp = $this->submitOrder($articleno,$articlename,$priceexclvat,$noofitems,$vatpercent);
+        if($resp['result']!=1){
+            return redirect()->back()->withErrors(['status' => 'Failed to send order to specter system.']);
         }
         $mailfrom = env('MAIL_USERNAME','admin@shop.eanplock.com');
         $mailto = env('MAIL_TO','bilguunerdeneb@gmail.com');
@@ -51,21 +66,54 @@ class OrderController extends Controller
         $data = [];
         $data['branch'] = $branch->name;
         $data['recdate'] = request('orderdate');
-        Mail::send('mail', ['data' => $data], function ($m) use ($user,$orderid,$mailfrom,$mailto) {
-            $m->from($mailfrom, 'Order - '.$orderid)
-            ->attachData($this->downloadpdf($orderid), "order_".$orderid.".pdf")
-            ->to(explode(';',$mailto), $user->name)
-            ->subject('Order - '.$orderid);
-        });
+        // Mail::send('mail', ['data' => $data], function ($m) use ($user,$orderid,$mailfrom,$mailto) {
+        //     $m->from($mailfrom, 'Order - '.$orderid)
+        //     ->attachData($this->downloadpdf($orderid), "order_".$orderid.".pdf")
+        //     ->to(explode(';',$mailto), $user->name)
+        //     ->subject('Order - '.$orderid);
+        // });
         Session::forget('cart');
-        $userid = env('API_USERID');
-        $userkey = env('API_USERKEY');
-        $sbmid = env('API_SBMID');
-        $intkey = env('API_INTKEY');
-        $custid = env('API_CUSTID');
-        $key = md5($intkey.(md5($userkey.$sbmid.$custid)));
+        
         return redirect()->back()->with(['status' => 'Successfully ordered.']);
     }
+    }
+    public function submitOrder($articleno,$articlename,$priceexvat,$noofitems,$vatpercent){
+        $userid = env('API_USERID','278');
+        $userkey = env('API_USERKEY','3499d8a4bbff6bc7c9a748570050ea64');
+        $sbmid = env('API_SBMID','2521');
+        $intkey = env('API_INTKEY','0b7bddee-6d04-4459-acf1-8427a809ef07');
+        $custid = env('API_CUSTID','109');
+        $url = env('API_URL','https://api.specter.se/');
+        $key = md5($intkey.(md5($userkey.$sbmid.$custid)));
+        $fullurl = $url.'/putInfo.asp?action=newOrderSubmit&sbmId='.$sbmid.'&useXml=2&apiUserId='.$userid.'&key='.$key.'&customerId='.$custid;
+        foreach($articleno as $key => $per){
+            $fullurl .= '&articleNo_'.urlencode($key+1).'='.urlencode($per);
+        }
+        foreach($articlename as $key => $per){
+            $fullurl .= '&articleName_'.urlencode($key+1).'='.urlencode($per);
+        }
+        foreach($priceexvat as $key => $per){
+            $fullurl .= '&priceExclVAT_'.urlencode($key+1).'='.urlencode($per);
+        }
+        foreach($noofitems as $key => $per){
+            $fullurl .= '&noOfItems_'.urlencode($key+1).'='.urlencode($per);
+        }
+        foreach($vatpercent as $key => $per){
+            $fullurl .= '&vatPercent_'.urlencode($key+1).'='.urlencode($per);
+        }
+        
+        
+        $curl = curl_init();    
+        curl_setopt($curl, CURLOPT_URL, $fullurl);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $data = curl_exec($curl);
+        curl_close($curl);
+        
+        $con = new \SimpleXMLElement($data);
+        
+        
+        return (array)$con->APIresponse;
+        
     }
     public function list(){
         // $asd = $this->downloadpdf(1);
