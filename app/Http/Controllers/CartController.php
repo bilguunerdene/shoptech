@@ -72,6 +72,54 @@ class CartController extends Controller
  
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
+    public function updateval(Request $request){
+        $product = Product::find($request->id);
+        $cart = session()->get('cart');
+ 
+        // if cart is empty then this the first product
+        if(!$cart) {
+ 
+            $cart = [
+                $product->id => [
+                        "id" => $product->id,
+                        "name" => $product->name,
+                        "quantity" => $request->quantity,
+                        "price" => $product->price,
+                        "inprice" => $product->inprice,
+                        "photo" => $product->imageurl,
+                        "cnt" => $product->cnt
+                    ]
+            ];
+ 
+            session()->put('cart', $cart);
+ 
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+        }
+ 
+        // if cart not empty then check if this product exist then increment quantity
+        if(isset($cart[$product->id])) {
+ 
+            $cart[$product->id]['quantity']=$request->quantity;
+ 
+            session()->put('cart', $cart);
+ 
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+ 
+        }
+        $cart[$product->id] = [
+            "id" => $product->id,
+            "name" => $product->name,
+            "quantity" => $request->quantity,
+            "price" => $product->price,
+            "inprice" => $product->inprice,
+            "photo" => $product->imageurl,
+            "cnt" => $product->cnt
+        ];
+
+        session()->put('cart', $cart);
+ 
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
     public function minus(Request $request){
         $product = Product::find($request->id);
         $cart = session()->get('cart');

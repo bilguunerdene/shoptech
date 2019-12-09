@@ -43,6 +43,8 @@ Route::post('login', 'Auth\LoginController@login');
 
 Route::post('update-cart', 'CartController@update');
 
+Route::post('update-cartval', 'CartController@updateval');
+
 Route::post('addtofav', 'ProductController@addtofav');
 
 Route::post('minus', 'CartController@minus');

@@ -204,6 +204,37 @@ function addval(id,quantity,price){
         }
     });
 }
+
+function additemval(id,quantity,price){
+    quantity = parseInt(quantity);
+    $.ajax({
+        "url": '{{ url("update-cartval") }}',
+        "type":"POST",
+        "data": { "_token": "{{ csrf_token() }}","id":id, "quantity":quantity},
+        "success":(html)=>{
+            $(".cartbadge").html(parseInt($(".cartbadge").html())+quantity);
+            // $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())+quantity);
+            
+            var subtotal = $(".subtotal").attr('data-value');
+            var subtot = parseFloat(subtotal)+parseFloat(quantity*price);
+            var vat = subtot*12/100;
+            $(".subtotal").html(toformat(subtot));
+            $(".subtotal").attr('data-value',subtot);
+            $(".vat").html(toformat(vat));
+            $(".vat").attr('data-value',vat);
+            $(".grandtotal").html(toformat(vat+subtot));
+            $(".grandtotal").attr('data-value',vat+subtot);
+
+            
+            var newtotal = parseFloat(quantity*price));
+            $(".row_"+id+" .itemtotal").html(newtotal);
+            $(".row_"+id+" .itemtotal").attr('data-value',newtotal)
+            var newq = toformat(parseInt(quantity));
+            $(".row_"+id+" .quantity").html(newq);
+            $(".row_"+id+" .quantity").attr('data-value',newq)
+        }
+    });
+}
 function toformat(number){
     return new Intl.NumberFormat('en-US',{ maximumFractionDigits: 2 }).format(number);
 }

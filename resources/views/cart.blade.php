@@ -51,7 +51,7 @@
                             <div class="uk-text-right price">SEK {{number_format($item['inprice'],2)}}</div>
                             <div style="justify-content:flex-end" class="pcontroller uk-margin uk-text-center uk-flex">
                                 <div class="uk-margin-right"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="minusval({{$item['id']}},{{$item['cnt']}},{{$item['inprice']}})"><span uk-icon="minus"></span></div></div>
-                                <div class="" style="width:140px"><input id="inputbtn{{$item['id']}}" type="text" class="uk-input inputbtn" value="{{$item['quantity']}}"></div>
+                                <div class="" style="width:140px"><input id="inputbtn{{$item['id']}}" onchange="additemval({{$item['id']}},this.value,{{$item['inprice']}})" type="text" class="uk-input inputbtn" value="{{$item['quantity']}}"></div>
                                 <div class="uk-margin-left"><div class="addbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item['id']}},{{$item['cnt']}},{{$item['inprice']}})"><span uk-icon="plus"></span></div></div>
                             </div>
                         <div class="removeproduct uk-text-right"><a href="{{route('remove-from-cart',$item['id'])}}"><span uk-icon="trash"></span> {{ __('Remove') }}</a></div>

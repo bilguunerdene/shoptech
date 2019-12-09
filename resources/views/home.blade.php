@@ -64,7 +64,7 @@
                             $quantity = $items['quantity'];
                         }
                     ?>
-                <div class=""><input id="inputbtn{{$item->id}}" type="text" class="uk-input inputbtn" value="{{$quantity}}"></div>
+                <div class=""><input id="inputbtn{{$item->id}}" type="text" class="uk-input inputbtn" onchange="additemval({{$item->id}},this.value)" value="{{$quantity}}"></div>
                     <div class="uk-margin-left"><div class="minusbtn btncontrol uk-border-circle uk-link uk-text-muted" onclick="addval({{$item->id}},{{$item->cnt}})"><span uk-icon="plus"></span></div></div>
                 </div>
             </div>
