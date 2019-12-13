@@ -180,6 +180,7 @@ function addval(id,quantity,price){
         "type":"POST",
         "data": { "_token": "{{ csrf_token() }}","id":id, "quantity":quantity},
         "success":(html)=>{
+            
             $(".cartbadge").html(parseInt($(".cartbadge").html())+quantity);
             $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())+quantity);
             
@@ -212,7 +213,8 @@ function additemval(id,quantity,price){
         "type":"POST",
         "data": { "_token": "{{ csrf_token() }}","id":id, "quantity":quantity},
         "success":(html)=>{
-            $(".cartbadge").html(parseInt($(".cartbadge").html())+quantity);
+            
+            $(".cartbadge").html(html.total);
             // $("#inputbtn"+id).val(parseInt($("#inputbtn"+id).val())+quantity);
             
             var subtotal = $(".subtotal").attr('data-value');
@@ -226,7 +228,7 @@ function additemval(id,quantity,price){
             $(".grandtotal").attr('data-value',vat+subtot);
 
             
-            var newtotal = parseFloat(quantity*price));
+            var newtotal = parseFloat(quantity*price);
             $(".row_"+id+" .itemtotal").html(newtotal);
             $(".row_"+id+" .itemtotal").attr('data-value',newtotal)
             var newq = toformat(parseInt(quantity));

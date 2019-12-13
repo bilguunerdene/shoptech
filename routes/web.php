@@ -41,6 +41,8 @@ Route::resource('product', 'ProductController');
 
 Route::post('login', 'Auth\LoginController@login');
 
+Route::get('/logout', 'Auth\LoginController@logout');
+
 Route::post('update-cart', 'CartController@update');
 
 Route::post('update-cartval', 'CartController@updateval');

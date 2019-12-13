@@ -7,6 +7,7 @@
                                 {{ session('msg') }}
                             </div>
                         @endif
+    <div style="overflow-x:scroll">
     <table class="table" id="table">
     <thead>
         <tr>
@@ -37,6 +38,7 @@
         @endforeach
     </tbody>
 </table>
+    </div>
 <div class="uk-clearfix">
     <div class="uk-float-left">
         

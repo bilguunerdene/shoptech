@@ -61,7 +61,9 @@
     </div>
 </nav>
 <div class="section uk-margin">
+<div style="overflow-x:scroll">
 @yield('section')
+</div>
 </div>
 </div>
 

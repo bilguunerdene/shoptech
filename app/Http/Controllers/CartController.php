@@ -93,7 +93,10 @@ class CartController extends Controller
  
             session()->put('cart', $cart);
  
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
+            return response()->json([
+                'id' => $product->id,
+                'total' => $request->quantity
+            ]);
         }
  
         // if cart not empty then check if this product exist then increment quantity
@@ -102,8 +105,14 @@ class CartController extends Controller
             $cart[$product->id]['quantity']=$request->quantity;
  
             session()->put('cart', $cart);
- 
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
+            $total = 0;
+            foreach($cart as $item => $val){
+                $total+=$val['quantity'];
+            }
+            return response()->json([
+                'id' => $product->id,
+                'total' => $total
+            ]);
  
         }
         $cart[$product->id] = [
@@ -117,8 +126,14 @@ class CartController extends Controller
         ];
 
         session()->put('cart', $cart);
- 
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
+        $total = 0;
+        foreach($cart as $item => $val){
+            $total+=$val['quantity'];
+        }
+        return response()->json([
+            'id' => $product->id,
+            'total' => $total
+        ]);
     }
     public function minus(Request $request){
         $product = Product::find($request->id);
